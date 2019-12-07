@@ -4,6 +4,11 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import firebase from 'firebase';
+import {firebaseConfig} from './config/firebase';
+
+export const fire = firebase.initializeApp(firebaseConfig);
+export const db = fire.firestore();
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
