@@ -2,8 +2,8 @@ import {
     combineReducers,
   } from 'redux';
   
-//   import todoList from './pages/TodoList/reducer';
+import login from '../pages/Auth/Login/reducer';
   
-  export default combineReducers({
-    // todoList,
-  });
+export default combineReducers({
+  login,
+});

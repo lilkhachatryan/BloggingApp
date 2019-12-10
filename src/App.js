@@ -1,4 +1,5 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
 // import Button from 'react-bootstrap/Button';
@@ -7,40 +8,40 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
   Link
 } from "react-router-dom";
+import { connect } from "react-redux";
+import Login from './pages/Auth/Login/index';
+import Profile from './pages/Profile';
+import ProtectedRoute from './ProtectedRoute';
+import './assets/styles/main.scss';
 
-function App() {
+// import configureStore from './store/index';
+// const store = configureStore();
+
+function App(props) {
+  const { isAuthenticated, isVerifying } = props;
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              {/* <Link to="/">Dashboard</Link> */}
-            </li>
-            <li>
-              {/* <Link to="/posts">Posts</Link> */}
-            </li>
-            <li>
-              {/* <Link to="/posts">Posts</Link> */}
-            </li>
-          </ul>
-        </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          {/* <Route path="/posts">
-            <PostList />
-          </Route> */}
-          {/* <Route path="/">
-            <Dashboard />
-          </Route> */}
-        </Switch>
-      </div>
-    </Router>
+    <Switch>
+      <ProtectedRoute
+        exact
+        path="/"
+        component={Profile}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      <Route path="/login" component={Login} />
+    </Switch>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  console.log('state',state)
+  return {
+    isAuthenticated: state.login.isAuthenticated,
+    isVerifying: state.login.isVerifying
+  }
+}
+
+export default connect(mapStateToProps)(App);

@@ -1,3 +1,7 @@
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+
 export const firebaseConfig = {
     apiKey: "AIzaSyA50eJOu7Tf0H2OUdJH25rFmVbi1C1zWBs",
     authDomain: "blogging-app-435bb.firebaseapp.com",
@@ -9,3 +13,7 @@ export const firebaseConfig = {
     // measurementId: "G-measurement-id",
   };
 
+
+  export const myFirebase = firebase.initializeApp(firebaseConfig);
+  const baseDb = myFirebase.firestore();
+  export const db = baseDb;
