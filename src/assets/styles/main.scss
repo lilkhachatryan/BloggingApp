@@ -1,0 +1,8 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    .field {
+        width: 200px;
+    }
+}

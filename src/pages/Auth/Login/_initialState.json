@@ -1,0 +1,12 @@
+{
+    "email": null,
+    "password": null,
+    "isLoggingIn": false,
+    "isLoggingOut": false,
+    "isVerifying": false,
+    "loginError": false,
+    "logoutError": false,
+    "isAuthenticated": false,
+    "user": {}
+
+}
