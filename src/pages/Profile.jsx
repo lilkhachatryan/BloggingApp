@@ -2,7 +2,7 @@ import React from 'react';
 import {Logout} from "./Auth/Logout";
 import {Button} from "@material-ui/core";
 import {logoutUser} from "./Auth/Login/actions";
-import connect from "react-redux/lib/connect/connect";
+import {connect} from "react-redux";
 
 class Profile extends React.Component {
     handleClick = () => {
@@ -32,8 +32,8 @@ render() {
 function mapStateToProps(state) {
     console.log('stte', state)
     return {
-        isLoggingOut: state.auth.isLoggingOut,
-        logoutError: state.auth.logoutError
+        isLoggingOut: state.login.isLoggingOut,
+        logoutError: state.login.logoutError
     };
 }
 export default connect(mapStateToProps)(Profile) ;
