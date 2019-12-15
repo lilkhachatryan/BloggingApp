@@ -47,6 +47,18 @@ function verifySuccess(dispatch) {
     dispatch(verifySuccessAction())
 }
 
+function logoutRequest(dispatch) {
+    dispatch(logoutRequestAction());
+}
+
+function logoutSuccess(dispatch) {
+    dispatch(logoutSuccessAction());
+}
+
+function logoutError(dispatch) {
+    dispatch(logoutFailureAction())
+}
+
 export const loginUser = (email, password) => dispatch => {
     loginRequest(dispatch);
 
@@ -79,4 +91,17 @@ export function useActions() {
         handleLoginRequest: (email, password) => loginUser(dispatch,email, password),
         handleVerifyAuth: () => verifyAuth(dispatch),
     }
+}
+
+export const logoutUser = () => dispatch => {
+    logoutRequest(dispatch);
+
+    myFirebase.auth()
+        .signOut()
+        .then(user => {
+            logoutSuccess(dispatch, user);
+        })
+        .catch(error => {
+            logoutError(dispatch);
+        })
 }

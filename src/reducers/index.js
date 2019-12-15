@@ -6,4 +6,6 @@ import login from '../pages/Auth/Login/reducer';
   
 export default combineReducers({
   login,
+    //logout,
+
 });
