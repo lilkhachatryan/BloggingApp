@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, VERIFY_REQUEST, VERIFY_SUCCESS } from './actions';
+import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_REQUEST, LOGOUT_SUCCESS, VERIFY_REQUEST, VERIFY_SUCCESS} from './actions';
 import initialState from './_initialState.json';
 import { userInfo } from 'os';
 
@@ -32,6 +32,19 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isVerifying: false
+            };
+        case LOGOUT_REQUEST:
+            return {
+                ...state,
+                isLoggingOut: true,
+                logoutError: false,
+            };
+        case LOGOUT_SUCCESS:
+            return {
+                ...state,
+                isLoggingOut: false,
+                isAuthenticated: false,
+                user: {}
             };
         default: 
             return state;
