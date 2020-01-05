@@ -6,14 +6,11 @@ import {connect} from "react-redux";
 
 class Profile extends React.Component {
     handleClick = () => {
-        const { dispatch } = this.props;
-        dispatch(logoutUser());
+        logoutUser();
     };
-render() {
-    return (
-        <>
-            <div>
-
+    render() {
+        return (
+            <>
                 <Button
                     type="button"
                     fullWidth
@@ -23,17 +20,19 @@ render() {
                     Logout
                 </Button>
                 <p>You Logged in</p>
-
-            </div>
-        </>
-    )
-}
+            </>
+        )
+    }
 }
 function mapStateToProps(state) {
-    console.log('stte', state)
     return {
         isLoggingOut: state.login.isLoggingOut,
         logoutError: state.login.logoutError
     };
 }
-export default connect(mapStateToProps)(Profile) ;
+
+const actionCreators = {
+    logoutUser,
+}
+
+export default connect(mapStateToProps, actionCreators)(Profile) ;

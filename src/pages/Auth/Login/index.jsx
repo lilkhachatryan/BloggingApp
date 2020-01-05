@@ -1,11 +1,10 @@
 import {TextField, Button} from '@material-ui/core';
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { loginUser } from "./actions";
 
 function Login(props) {
-    console.log('props', props);
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
@@ -13,12 +12,11 @@ function Login(props) {
     const handlePasswordChange = event => setPassword(event.target.value);
 
     const handleSubmit = () => {
-        const { dispatch } = props;
+        // const { dispatch } = props;
+        // dispatch(loginUser(email, password));
 
-        // const { email, password } = state;
-        dispatch(loginUser(email, password));
+        loginUser(email, password)
     };
-
 
     const { classes, loginError, isAuthenticated } = props;
     if (isAuthenticated) {
@@ -27,8 +25,14 @@ function Login(props) {
         return (
             <>
                 <div className="login-container">
-                    <TextField id="standard-basic" label="Email"  className="field" onChange={handleEmailChange}/>
-                    <TextField id="standard-basic" label="Password" className="field" onChange={handlePasswordChange}/>
+                    <TextField id="standard-basic" 
+                        label="Email"
+                        className="field"
+                        onChange={handleEmailChange}/>
+                    <TextField id="standard-basic"
+                        label="Password"
+                        className="field"
+                        onChange={handlePasswordChange}/>
                     <Button
                         type="button"
                         fullWidth
@@ -44,12 +48,15 @@ function Login(props) {
 }
 
 const  mapStateToProps = (state) => {
-    console.log('state',state)
     return {
       isLoggingIn: state.login.isLoggingIn,
       loginError: state.login.loginError,
       isAuthenticated: state.login.isAuthenticated
     };
-  }
+}
 
-export default connect(mapStateToProps)(Login);
+const actionCreators = {
+    loginUser,
+}  
+
+export default connect(mapStateToProps, actionCreators)(Login);

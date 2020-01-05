@@ -84,15 +84,6 @@ export const verifyAuth = () => dispatch => {
       });
 };
 
-export function useActions() {
-    const dispatch = useDispatch();
-
-    return {
-        handleLoginRequest: (email, password) => loginUser(dispatch,email, password),
-        handleVerifyAuth: () => verifyAuth(dispatch),
-    }
-}
-
 export const logoutUser = () => dispatch => {
     logoutRequest(dispatch);
 
@@ -104,4 +95,13 @@ export const logoutUser = () => dispatch => {
         .catch(error => {
             logoutError(dispatch);
         })
+}
+
+export function useActions() {
+    const dispatch = useDispatch();
+
+    return {
+        handleLoginRequest: (email, password) => loginUser(dispatch, email, password),
+        handleVerifyAuth: () => verifyAuth(dispatch),
+    }
 }
