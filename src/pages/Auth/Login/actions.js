@@ -59,7 +59,7 @@ function logoutError(dispatch) {
     dispatch(logoutFailureAction())
 }
 
-export const loginUser = (email, password) => dispatch => {
+export const loginUser = (email, password) => (dispatch, getSate, { getFireBase, getFirestore })=> {
     loginRequest(dispatch);
 
     myFirebase.auth()
