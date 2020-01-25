@@ -3,36 +3,14 @@ import {
     createStore,
     applyMiddleware,
   } from 'redux';
-  import thunkMiddleware from 'redux-thunk';
-  import { reduxFirestore, getFirestore } from 'redux-firestore';
-  import { reactReduxFirebase , getFirebase } from 'react-redux-firebase';
-  import firbase from '../config/firebase';
-  
-  import reducers from '../reducers/index';
+import thunkMiddleware from 'redux-thunk';
+import reducers from '../reducers/index';
+import {verifyAuth} from '../pages/Auth/Login/actions';
 
-  import {verifyAuth} from '../pages/Auth/Login/actions';
+const store = createStore(reducers,
+    compose(applyMiddleware(thunkMiddleware))
+);
 
-  export default function configureStore() {
-    const store = createStore(
-      reducers,
-      compose(
-        applyMiddleware(thunkMiddleware.withExtraArgument({ getFirebase, getFirestore })),
-        reduxFirestore(firbase),
-        reactReduxFirebase(firbase),
-      )
-    );
-    store.dispatch(verifyAuth());
-    return store;
-  }
-// const store = createStore(
-//     reducers,
-//     compose(
-//       applyMiddleware(thunkMiddleware.withExtraArgument({ getFirebase, getFirestore })),
-//       reduxFirestore(firbase),
-//       reactReduxFirebase(firbase),
-//     )
-//   );
-// store.dispatch(verifyAuth());
+store.dispatch(verifyAuth());
 
-
-// export default store;
+export default store;

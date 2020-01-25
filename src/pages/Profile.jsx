@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 
 class Profile extends React.Component {
     handleClick = () => {
-        logoutUser();
+        this.props.logoutUser();
     };
     render() {
         return (
@@ -33,6 +33,6 @@ function mapStateToProps(state) {
 
 const actionCreators = {
     logoutUser,
-}
+};
 
 export default connect(mapStateToProps, actionCreators)(Profile) ;

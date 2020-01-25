@@ -33,7 +33,6 @@ export function Logout(props) {
 }
 
 const  mapStateToProps = (state) => {
-    console.log('state',state)
     return {
         isLoggingIn: state.login.isLoggingIn,
         loginError: state.login.loginError,

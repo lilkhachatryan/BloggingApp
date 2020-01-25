@@ -12,7 +12,7 @@ const ProtectedRoute = ({
       {...rest}
       render = { props =>
         isVerifying ? (
-          <div>Request not verified yet some loading.</div>
+          <div style={{marginTop: 50}}>Request not verified yet some loading.</div>
         ) : isAuthenticated ? (
           <Component {...props} />
         ) : (
