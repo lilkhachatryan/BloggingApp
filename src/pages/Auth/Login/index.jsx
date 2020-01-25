@@ -5,20 +5,20 @@ import { Redirect } from "react-router-dom";
 import { loginUser } from "./actions";
 
 function Login(props) {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleEmailChange = event => setEmail(event.target.value);
     const handlePasswordChange = event => setPassword(event.target.value);
+    const { classes, loginError, isAuthenticated, loginUser } = props;
+
 
     const handleSubmit = () => {
         // const { dispatch } = props;
         // dispatch(loginUser(email, password));
-
-        loginUser(email, password)
+        loginUser(email, password);
     };
 
-    const { classes, loginError, isAuthenticated } = props;
     if (isAuthenticated) {
         return <Redirect to="/" />;
     } else {
@@ -53,10 +53,10 @@ const  mapStateToProps = (state) => {
       loginError: state.login.loginError,
       isAuthenticated: state.login.isAuthenticated
     };
-}
+};
 
 const actionCreators = {
     loginUser,
-}  
+};
 
 export default connect(mapStateToProps, actionCreators)(Login);

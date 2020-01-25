@@ -13,6 +13,7 @@ import Profile from './pages/Profile';
 import ProtectedRoute from './ProtectedRoute';
 import './assets/styles/main.scss';
 import Header from './components/layout/Header';
+import PostList from './pages/Posts/PostList';
 
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
@@ -28,6 +29,12 @@ function App(props) {
           isAuthenticated={isAuthenticated}
           isVerifying={isVerifying}
         />
+        <ProtectedRoute
+            path="/posts"
+            component={PostList}
+            isAuthenticated={isAuthenticated}
+            isVerifying={isVerifying}
+        />
         <Route path="/login" component={Login} />
       </Switch>
     </>
@@ -39,6 +46,6 @@ const mapStateToProps = state => {
     isAuthenticated: state.login.isAuthenticated,
     isVerifying: state.login.isVerifying
   }
-}
+};
 
 export default connect(mapStateToProps)(App);

@@ -59,7 +59,7 @@ function logoutError(dispatch) {
     dispatch(logoutFailureAction())
 }
 
-export const loginUser = (email, password) => dispatch => {
+export const loginUser = (email, password) => (dispatch)=> {
     loginRequest(dispatch);
 
     myFirebase.auth()
@@ -74,7 +74,6 @@ export const loginUser = (email, password) => dispatch => {
 
 export const verifyAuth = () => dispatch => {
     verifyRequest(dispatch);
-
     myFirebase.auth()
       .onAuthStateChanged(user => {
         if (user !== null) {

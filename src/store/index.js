@@ -3,29 +3,14 @@ import {
     createStore,
     applyMiddleware,
   } from 'redux';
-  import thunkMiddleware from 'redux-thunk';
-  
-  import reducers from '../reducers/index';
+import thunkMiddleware from 'redux-thunk';
+import reducers from '../reducers/index';
+import {verifyAuth} from '../pages/Auth/Login/actions';
 
-  import {verifyAuth} from '../pages/Auth/Login/actions'
-  // console.log("useActions", useActions())
-  
-  // If you have a Redux extesion for Chrome.
-  // const enhacers = (window.__REDUX_DEVTOOLS_EXTENSION__
-  //   ? window.__REDUX_DEVTOOLS_EXTENSION__()
-  //   : f => f
-  // );
-  
-  // export default createStore(
-  //   applyMiddleware(thunkMiddleware),
-  //   reducers,
-  // );
+const store = createStore(reducers,
+    compose(applyMiddleware(thunkMiddleware))
+);
 
-  export default function configureStore() {
-    const store = createStore(
-      reducers,
-      applyMiddleware(thunkMiddleware)
-    );
-    store.dispatch(verifyAuth());
-    return store;
-  }
+store.dispatch(verifyAuth());
+
+export default store;
