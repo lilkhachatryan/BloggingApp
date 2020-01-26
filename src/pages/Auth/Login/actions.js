@@ -70,7 +70,7 @@ export const loginUser = (email, password) => (dispatch)=> {
     .catch(error => {
         loginError(dispatch);
     })
-}
+};
 
 export const verifyAuth = () => dispatch => {
     verifyRequest(dispatch);
@@ -94,7 +94,7 @@ export const logoutUser = () => dispatch => {
         .catch(error => {
             logoutError(dispatch);
         })
-}
+};
 
 export function useActions() {
     const dispatch = useDispatch();

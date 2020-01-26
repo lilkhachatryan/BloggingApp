@@ -1,6 +1,12 @@
-import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_REQUEST, LOGOUT_SUCCESS, VERIFY_REQUEST, VERIFY_SUCCESS} from './actions';
+import {
+    LOGIN_REQUEST,
+    LOGIN_SUCCESS,
+    LOGOUT_REQUEST,
+    LOGOUT_SUCCESS,
+    VERIFY_REQUEST,
+    VERIFY_SUCCESS
+} from './actions';
 import initialState from './_initialState.json';
-import { userInfo } from 'os';
 
 export default (state = initialState, action) => {
     const {
@@ -20,7 +26,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isLoggingIn: false,
                 isAuthenticated: true,
-                user: action.user
+                user: payload.user
             };
         case VERIFY_REQUEST:
             return {

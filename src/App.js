@@ -13,7 +13,7 @@ import Profile from './pages/Profile';
 import ProtectedRoute from './ProtectedRoute';
 import './assets/styles/main.scss';
 import Header from './components/layout/Header';
-import PostList from './pages/Posts/PostList';
+import PostList from './pages/Posts';
 
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
