@@ -61,7 +61,6 @@ function logoutError(dispatch) {
 
 export const loginUser = (email, password) => (dispatch)=> {
     loginRequest(dispatch);
-
     myFirebase.auth()
     .signInWithEmailAndPassword(email,password)
     .then(user => {
