@@ -1,12 +1,22 @@
 import React, {useState} from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
+import { connect } from 'react-redux';
+import { register } from "./action";
+import {} from "react-router-dom";
 
-const Register = () => {
+const Register = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleEmailChange = event => setEmail(event.target.value);
     const handlePasswordChange = event => setPassword(event.target.value);
+
+    const { register, history } = props;
+
+    const handleSubmit = () => {
+      register(email, password);
+      history.push('/');
+    };
 
     return (
         <>
@@ -46,7 +56,7 @@ const Register = () => {
                                 variant="outline-success"
                                 className="ml-sm-2"
                                 size="lg"
-                                // onClick={handleSubmit}
+                                onClick={handleSubmit}
                             >Register</Button>
                         </Col>
                     </Form.Group>
@@ -56,4 +66,10 @@ const Register = () => {
     )
 };
 
-export default Register;
+const mapDispatchToProps = dispatch => {
+    return {
+        register: (email, password) => dispatch(register({email, password}))
+    }
+};
+
+export default connect(null, mapDispatchToProps)(Register);
