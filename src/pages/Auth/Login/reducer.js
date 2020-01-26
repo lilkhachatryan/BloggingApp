@@ -6,6 +6,10 @@ import {
     VERIFY_REQUEST,
     VERIFY_SUCCESS
 } from './actions';
+import {
+    REGISTER_SUCCESS,
+    REGISTER_ERROR
+} from "../Register/action";
 import initialState from './_initialState.json';
 
 export default (state = initialState, action) => {
@@ -51,6 +55,14 @@ export default (state = initialState, action) => {
                 isLoggingOut: false,
                 isAuthenticated: false,
                 user: {}
+            };
+        case REGISTER_SUCCESS:
+            console.log("payload", payload);
+            return {
+                ...state,
+                isLoggingIn: false,
+                isAuthenticated: true,
+                user: payload.user
             };
         default: 
             return state;
