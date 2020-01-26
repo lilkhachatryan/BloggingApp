@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Nav, NavDropdown, Form, Button, FormControl, Image} from 'react-bootstrap';
-import Avarat from '../../assets/images/user.png';
+import Avatar from '../../assets/images/user.png';
+import Logout from "../../pages/Auth/Logout";
 
 const SignedInLinks = () => {
     return (
@@ -20,8 +21,8 @@ const SignedInLinks = () => {
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                 <Button variant="outline-success">Search</Button>
             </Form>
-            <Button variant="outline-primary" className="ml-sm-2">Logout</Button>
-            <Image src={Avarat} roundedCircle style={{height: 50, width: 50}} className="ml-sm-2"/>
+            <Logout />
+            <Image src={Avatar} roundedCircle style={{height: 50, width: 50}} className="ml-sm-2"/>
         </>
     )
 }
