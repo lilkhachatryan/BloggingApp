@@ -3,20 +3,23 @@ import { connect } from "react-redux";
 import {Link, Redirect} from "react-router-dom";
 import { loginUser } from "./actions";
 import { Button, Form, Col, Row } from "react-bootstrap";
+import useForm from "../../../utils/useForm";
+import validateLogin from "./validateLogin";
 
 function Login(props) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleEmailChange = event => setEmail(event.target.value);
-    const handlePasswordChange = event => setPassword(event.target.value);
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
+    //
+    // const handleEmailChange = event => setEmail(event.target.value);
+    // const handlePasswordChange = event => setPassword(event.target.value);
     const { classes, loginError, isAuthenticated, loginUser } = props;
 
+    const { values, errors, handleChange, handleSubmit } = useForm(submit, validateLogin);
 
-    const handleSubmit = () => {
+    function submit() {
         // const { dispatch } = props;
         // dispatch(loginUser(email, password));
-        loginUser(email, password);
+        loginUser(values.email, values.password);
     };
 
     if (isAuthenticated) {
@@ -29,12 +32,19 @@ function Login(props) {
                         <Form.Group as={Row} controlId="formGridEmail">
                             <Form.Label column sm={4} className="ml-sm-2">Email</Form.Label>
                             <Col sm={8}>
-                            <Form.Control
-                                type="email"
-                                value={email}
-                                placeholder="Enter email"
-                                className="ml-sm-2"
-                                onChange={handleEmailChange}/>
+                                <Form.Control
+                                    type="email"
+                                    name="email"
+                                    value={values.email}
+                                    placeholder="Enter email"
+                                    className={
+                                        {
+                                            "ml-sm-2": true,
+                                            "inputError": errors.email
+                                        }
+                                    }
+                                    onChange={handleChange}/>
+                                {errors.email && <p className="ml-sm-2 error">{errors.email}</p>}
                             </Col>
                         </Form.Group>
                     </Form.Row>
@@ -45,10 +55,17 @@ function Login(props) {
                             <Col sm={8}>
                                 <Form.Control
                                     type="password"
-                                    value={password}
+                                    name="password"
+                                    value={values.password}
                                     placeholder="Password"
-                                    className="ml-sm-2"
-                                    onChange={handlePasswordChange}/>
+                                    className={
+                                        {
+                                            "ml-sm-2": true,
+                                            "inputError": errors.password
+                                        }
+                                    }
+                                    onChange={handleChange}/>
+                                {errors.password && <p className="ml-sm-2 error">{errors.password}</p>}
                             </Col>
                         </Form.Group>
                     </Form.Row>
