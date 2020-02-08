@@ -33,7 +33,7 @@ function Posts(props) {
     return (
         <>
             <div>
-                posts list
+                posts list-------
             </div>
             <p>You still Logged in and this is protected route</p>
         </>

@@ -8,7 +8,7 @@ const Header = (props) => {
     const {isAuthenticated} = props;
     return (
         <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="/">Blogging</Navbar.Brand>
+            <Navbar.Brand href="/"> Blogging</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />            
             <Navbar.Collapse id="basic-navbar-nav">
                 {isAuthenticated && <SignedInLinks />}

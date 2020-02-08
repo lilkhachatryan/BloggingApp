@@ -4,10 +4,11 @@ import { Nav, NavDropdown, Form, Button, FormControl, Image} from 'react-bootstr
 import Avatar from '../../assets/images/user.png';
 import Logout from "../../pages/Auth/Logout";
 
+
 const SignedInLinks = () => {
-    return (
+        return(
         <>
-            <Nav className="ml-auto">
+                <Nav className="ml-auto">
                 <Nav.Link href="#home">Home</Nav.Link>
                 <Nav.Link href="#link">Link</Nav.Link>
                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -20,8 +21,10 @@ const SignedInLinks = () => {
             <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                 <Button variant="outline-success">Search</Button>
+                <Button variant="outline-success"> <Link to="/addpost">Add Post</Link></Button>
             </Form>
             <Logout />
+            
             <Image src={Avatar} roundedCircle style={{height: 50, width: 50}} className="ml-sm-2"/>
         </>
     )
