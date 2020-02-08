@@ -59,7 +59,7 @@ function Login(props) {
                                 <Button
                                     variant="outline-success"
                                     className="ml-sm-2"
-                                    size="lg"
+                                    size="1g"
                                     onClick={handleSubmit}
                                 >Login</Button>
                             </Col>
