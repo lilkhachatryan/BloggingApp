@@ -1,5 +1,7 @@
 import { createAction } from "redux-actions";
 import { myFirebase } from "../../config/firebase";
+
+
 export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
 const addPostSuccessAction = createAction(ADD_POST_SUCCESS);
 
@@ -11,12 +13,12 @@ export const poster = ({title, about}) => {
     return (dispatch, getState) => {
             const post = {
                 title: title,
-                content: about
+                content: about,
             }
             myFirebase.firestore().collection("posts").doc().set(post)
             .then((res) => {                    
                 dispatch(addPostSuccessAction(post));
-                console.log("post", res);
+                //console.log("post", res);
             })
             .catch(err => dispatch(addPostErrorAction(post))
             )

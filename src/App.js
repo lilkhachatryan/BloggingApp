@@ -17,6 +17,7 @@ import PostList from './pages/Posts';
 import Home from "./pages/Home";
 import Register from "./pages/Auth/Register";
 import AddPost from "./pages/Posts/AddPost";
+import Posts from "./pages/Posts"
 
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
@@ -42,6 +43,7 @@ function App(props) {
         <Route path="/register" component={Register} />
         <Route path="/home" component={Home} />
         <Route  exact path="/addpost" component={AddPost} />
+        <Route  exact path="/posts" component={Posts} />
       </Switch>
     </>
   );

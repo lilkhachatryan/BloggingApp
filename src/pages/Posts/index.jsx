@@ -1,27 +1,32 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from "react-redux";
+import{Container,Row,Col,Table} from "react-bootstrap";
+
 // import {useActions} from'./actions';
 import {myFirebase} from '../../config/firebase';
 
 function Posts(props) {
     const [posts, setPosts] = useState([]);
-
+    
     const fetchPosts = () => {
+
         const ref = myFirebase.firestore().collection('posts');
 
-        let postList = [];
-
         ref.get()
-            .then((docs) => {
-                postList = docs.docs.map(doc => {
+            .then((asd) => {
+                let res = [];
+                 asd.docs.map(doc => {
                     if (doc.exists) {
-                        return doc.data();
+                        //debugger;                      
+                        res.push(doc.data());                        
+                        
                     } else {
                         console.log("No such document!");
                     }
                 });
-                setPosts(postList);
-                // return postList;
+                setPosts(res);
+            
+                
             })
             .catch((err) => console.log("err -->", err))
     };
@@ -30,14 +35,18 @@ function Posts(props) {
         fetchPosts();
     }, []);
     console.log("posts", posts);
+
+
     return (
-        <>
-            <div>
-                posts list-------
-            </div>
-            <p>You still Logged in and this is protected route</p>
-        </>
-    )
+    <>
+        {posts.map(p =>
+                <div class="card-body">
+                <h5 class="card-title">{p.title}</h5>
+                <p class="card-text">{p.content}</p>
+              </div>
+                )}
+    </>
+        )
 }
 // function mapStateToProps(state) {
 //     return {

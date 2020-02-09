@@ -12,8 +12,8 @@ export default (state = _initialState, action) => {
                 posts: payload.posts
             };
         case ADD_POST_SUCCESS: 
-            return {
-                ...state,
+            return {                
+                posts: payload.posts
             }
         case ADD_POST_ERROR: 
             return {
