@@ -11,12 +11,6 @@ const SignedInLinks = () => {
                 <Nav className="ml-auto">
                 <Nav.Link href="#home">Home</Nav.Link>
                 <Nav.Link href="#link">Link</Nav.Link>
-                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                </NavDropdown>
             </Nav>
             <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -25,7 +19,15 @@ const SignedInLinks = () => {
             </Form>
             <Logout />
             
-            <Image src={Avatar} roundedCircle style={{height: 50, width: 50}} className="ml-sm-2"/>
+            {/*<Image src={Avatar} roundedCircle style={{height: 50, width: 50}} className="ml-sm-2"/>*/}
+            <NavDropdown title={
+                    <Image src={Avatar} roundedCircle style={{height: 50, width: 50}} className="ml-sm-2"/>
+                } id="basic-nav-dropdown" className="mr-5">
+                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+            </NavDropdown>
         </>
     )
 }

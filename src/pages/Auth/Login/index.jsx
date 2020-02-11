@@ -14,7 +14,7 @@ function Login(props) {
     // const handlePasswordChange = event => setPassword(event.target.value);
     const { classes, loginError, isAuthenticated, loginUser } = props;
 
-    const { values, errors, handleChange, handleSubmit } = useForm(submit, validateLogin);
+    const { values, errors, handleChange, handleSubmit } = useForm(submit, validateLogin, {email: '', password: ''});
 
     function submit() {
         // const { dispatch } = props;
