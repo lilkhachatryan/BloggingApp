@@ -1,5 +1,5 @@
 import { GET_POSTS } from './actions';
-import {ADD_POST_SUCCESS, ADD_POST_ERROR } from './addPostaction';
+import {ADD_POST_SUCCESS, ADD_POST_ERROR } from './actions';
 import _initialState from './_initialState';
 
 export default (state = _initialState, action) => {
