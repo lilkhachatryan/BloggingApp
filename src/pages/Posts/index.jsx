@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from "react-redux";
-import{Container,Row,Col,Table} from "react-bootstrap";
+import{Card,ListGroup,ListGroupItem ,Row,Col,Table,Form,FormControl,Button} from "react-bootstrap";
+import ReadMoreReact from 'read-more-react';
+import {Link} from "react-router-dom"
 
 // import {useActions} from'./actions';
 import {myFirebase} from '../../config/firebase';
@@ -18,7 +20,7 @@ function Posts(props) {
                  asd.docs.map(doc => {
                     if (doc.exists) {
                         //debugger;                      
-                        res.push(doc.data());                        
+                        res.push({...doc.data(), id: doc.id});                        
                         
                     } else {
                         console.log("No such document!");
@@ -35,17 +37,22 @@ function Posts(props) {
     }, []);
     console.log("posts", posts);
 
-
     return (
     <>
         {posts.map(p =>
-                <div class="card-body">
-                <h5 class="card-title">{p.title}</h5>
-                <p class="card-text">{p.content}</p>
-              </div>
-                )}
+            
+            <Card style={{ width: '50rem' }} className = "mx-auto" key = {p.id}>
+                <Card.Body>
+                    <Card.Title>{p.title}</Card.Title>
+                    <Card.Text>
+                    {p.content}
+                        <Link to={"/post/" + p.id}>read more...</Link>                       
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        )}
     </>
-        )
+    )
 }
 // function mapStateToProps(state) {
 //     return {

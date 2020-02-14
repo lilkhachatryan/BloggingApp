@@ -26,7 +26,6 @@ export default (state = initialState, action) => {
                 loginError: false
              };
         case LOGIN_SUCCESS:
-            console.log("payload", payload);
             return {
                 ...state,
                 isLoggingIn: false,
