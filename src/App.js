@@ -17,7 +17,8 @@ import PostList from './pages/Posts';
 import Home from "./pages/Home";
 import Register from "./pages/Auth/Register";
 import AddPost from "./pages/Posts/AddPost";
-import Posts from "./pages/Posts"
+import Posts from "./pages/Posts";
+import PostDetails from "./pages/Posts/PostDetails";
 
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
@@ -39,11 +40,17 @@ function App(props) {
             isAuthenticated={isAuthenticated}
             isVerifying={isVerifying}
         />
+          <ProtectedRoute
+            path="/post/:id"
+            component={PostDetails}
+            isAuthenticated={isAuthenticated}
+            isVerifying={isVerifying}
+        />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/home" component={Home} />
         <Route  exact path="/addpost" component={AddPost} />
-        <Route  exact path="/posts" component={Posts} />
+        
       </Switch>
     </>
   );

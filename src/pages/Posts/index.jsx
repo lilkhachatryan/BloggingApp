@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from "react-redux";
 import{Card,ListGroup,ListGroupItem ,Row,Col,Table,Form,FormControl,Button} from "react-bootstrap";
+import ReadMoreReact from 'read-more-react';
+import {Link} from "react-router-dom"
 
 // import {useActions} from'./actions';
 import {myFirebase} from '../../config/firebase';
@@ -36,33 +38,18 @@ function Posts(props) {
     }, []);
     console.log("posts", posts);
 
-    const handleOnChange = (e) => {
-        
-    }
-
-   const handleOnClick = ()=>{
-
-
-
-   }
-
     return (
     <>
         {posts.map(p =>
-            <Card style={{ width: '18rem' }} key = {p.id}>
+            
+            <Card style={{ width: '50rem' }} className = "mx-auto" key = {p.id}>
                 <Card.Body>
                     <Card.Title>{p.title}</Card.Title>
                     <Card.Text>
                     {p.content}
+                        <Link to={"/post/" + p.id}>read more...</Link>                       
                     </Card.Text>
                 </Card.Body>
-                <ListGroup className="list-group-flush">
-                    <ListGroupItem>Cras justo odio</ListGroupItem>
-                </ListGroup>      
-                <Form inline>
-                    <FormControl type="text" placeholder="add your comment" className="mr-sm-2" onChange = {handleOnChange}/>
-                    <Button variant="outline-success" onClick = {handleOnClick} >ADD</Button>
-                </Form>
             </Card>
         )}
     </>

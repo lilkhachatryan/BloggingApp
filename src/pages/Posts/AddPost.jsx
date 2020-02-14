@@ -4,21 +4,23 @@ import {} from "react-router-dom";
 import {connect} from "react-redux";
 import {poster} from "./actions";
 import validatePost from "./validatePost";
-import useForm from "../../../src/utils/useForm"
-
+import useForm from "../../../src/utils/useForm";
 function AddPost(props) {
     // const [title, setTitle] = useState('');
     // const [about, setAbout] = useState('');
 
     // const handleTitleChange = event => setTitle(event.target.value);
     // const handleAboutChange = event => setAbout(event.target.value);
+
     const { values, errors, handleChange, handleSubmit } = useForm(submit, validatePost, {title:"",about: ""} );
 
     const { poster, history } = props;
 
     function submit() {
         poster(values.title,values.about);
-        // history.push('/posts');
+         history.push('/posts');
+
+
     };
     return (
         <div>
