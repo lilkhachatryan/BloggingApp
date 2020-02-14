@@ -16,11 +16,22 @@ const useForm = (callback, validate, defaultState) => {
 
     const handleSubmit = () => {
         setErrors(validate(values));
-        setIsSubmitting(true);
+        if (Object.keys(errors).length === 0) {
+            setIsSubmitting(true);
+        } else {
+            setIsSubmitting(false);
+        }
     };
     useEffect(() => {
         if (isSubmitting && Object.keys(errors).length === 0) {
-            callback();
+            try {
+                callback();
+            } catch (e) {
+                console.log("err", e);
+                setIsSubmitting(false);
+            }
+        } else {
+            setIsSubmitting(false);
         }
     }, [errors]);
 
