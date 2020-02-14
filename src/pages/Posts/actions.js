@@ -12,11 +12,17 @@ export const ADD_POST_ERROR = "ADD_POST_ERROR";
 const addPostErrorAction = createAction(ADD_POST_ERROR);
 // const db=firebase.firestore();
 
-export const ADD_COMMENT_SUCCES = "ADD_COMMENT_SUCCES";
-const addCommentSucces = createAction(ADD_COMMENT_SUCCES);
+export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
+const addCommentSuccess = createAction(ADD_COMMENT_SUCCESS);
 
 export const ADD_COMMENT_ERROR = "ADD_COMMENT_ERROR";
 const addCommentError = createAction(ADD_COMMENT_ERROR);
+
+export const UPLOAD_FILE_SUCCESS = "UPLOAD_FILE_SUCCESS";
+const uploadFileSuccess = createAction(UPLOAD_FILE_SUCCESS);
+
+export const UPLOAD_FILE_ERROR = "UPLOAD_FILE_ERROR";
+const uploadFileError = createAction(UPLOAD_FILE_ERROR);
 
 
 

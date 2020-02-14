@@ -5,6 +5,10 @@ import {connect} from "react-redux";
 import {poster} from "./actions";
 import validatePost from "./validatePost";
 import useForm from "../../../src/utils/useForm";
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+
+
 function AddPost(props) {
     // const [title, setTitle] = useState('');
     // const [about, setAbout] = useState('');
@@ -14,7 +18,8 @@ function AddPost(props) {
 
     const { values, errors, handleChange, handleSubmit } = useForm(submit, validatePost, {title:"",about: ""} );
 
-    const { poster, history } = props;
+    const { poster, history
+     } = props;
 
     function submit() {
         poster(values.title,values.about);
@@ -22,6 +27,15 @@ function AddPost(props) {
 
 
     };
+    const handleFileChange = (e)=>{
+        if(e.target.files[0]){
+            const {image} = e.target.files[0];
+            
+        }
+        console.log("zzz", e.target.files[0]);
+
+    }
+
     return (
         <div>
             <>
@@ -68,6 +82,15 @@ function AddPost(props) {
                             </Col>
                         </Form.Group>
                     </Form.Row>
+                    <div>
+                    <input accept="image/*"  id="icon-button-file" type="file" name = "file" onChange ={handleFileChange} />
+                    <label htmlFor="icon-button-file">
+                    <IconButton color="primary" aria-label="upload picture" component="span">
+                    </IconButton>
+                     </label>
+                     </div>              
+
+                    
                     <Form.Row>
                         <Form.Group as={Row} controlId="post">
                             <Col sm={10}>
@@ -80,6 +103,9 @@ function AddPost(props) {
                             </Col>
                         </Form.Group>
                     </Form.Row>
+                    
+
+                    
                 </div>
             </>
             
