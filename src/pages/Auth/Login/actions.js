@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import { useDispatch } from 'react-redux';
 import {myFirebase} from '../../../config/firebase';
+import {getLocalStorage, removeLocalStorage, setLocalStorage} from "../../../utils/localStorage";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 const loginRequestAction = createAction(LOGIN_REQUEST);
@@ -59,27 +60,33 @@ function logoutError(dispatch) {
     dispatch(logoutFailureAction())
 }
 
-export const loginUser = (email, password) => (dispatch)=> {
-    loginRequest(dispatch);
-    myFirebase.auth()
-    .signInWithEmailAndPassword(email,password)
-    .then(user => {
-        loginSuccess(dispatch, user);
-    })
-    .catch(error => {
-        loginError(dispatch);
-    })
+export const loginUser = (email, password) => {
+    return (dispatch) => {
+        loginRequest(dispatch);
+        myFirebase.auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(res => {
+                dispatch(getUser(res.user.uid));
+            })
+            .catch(error => {
+                loginError(dispatch);
+            })
+    }
 };
 
-export const verifyAuth = () => dispatch => {
-    verifyRequest(dispatch);
-    myFirebase.auth()
-      .onAuthStateChanged(user => {
-        if (user !== null) {
-          loginSuccess(dispatch, user);
-        }
-        verifySuccess(dispatch);
-      });
+export const verifyAuth = () => {
+    return (dispatch) => {
+        verifyRequest(dispatch);
+        myFirebase.auth()
+            .onAuthStateChanged(res => {
+                if (res !== null) {
+                    let user = getLocalStorage('user') || {};
+                    user = JSON.parse(user);
+                    loginSuccess(dispatch, user);
+                }
+                verifySuccess(dispatch);
+            });
+    }
 };
 
 export const logoutUser = () => dispatch => {
@@ -88,11 +95,26 @@ export const logoutUser = () => dispatch => {
     myFirebase.auth()
         .signOut()
         .then(user => {
+            removeLocalStorage('user');
             logoutSuccess(dispatch, user);
         })
         .catch(error => {
             logoutError(dispatch);
         })
+};
+
+export const getUser = (uid) => {
+    return (dispatch) => {
+        const ref = myFirebase.firestore().collection('users').doc(uid);
+        ref.get()
+            .then((doc) => {
+                if (doc.exists) {
+                    setLocalStorage('user', JSON.stringify(doc.data()));
+                    loginSuccess(dispatch, doc.data());
+                }
+            })
+            .catch((err) => console.log("err -->", err))
+    };
 };
 
 export function useActions() {

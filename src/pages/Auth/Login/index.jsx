@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import {Link, Redirect} from "react-router-dom";
+import { Redirect} from "react-router-dom";
 import { loginUser } from "./actions";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import useForm from "../../../utils/useForm";
@@ -17,8 +17,6 @@ function Login(props) {
     const { values, errors, handleChange, handleSubmit } = useForm(submit, validateLogin, {email: '', password: ''});
 
     function submit() {
-        // const { dispatch } = props;
-        // dispatch(loginUser(email, password));
         loginUser(values.email, values.password);
     };
 
@@ -97,7 +95,7 @@ const  mapStateToProps = (state) => {
 };
 
 const actionCreators = {
-    loginUser,
+    loginUser
 };
 
 export default connect(mapStateToProps, actionCreators)(Login);

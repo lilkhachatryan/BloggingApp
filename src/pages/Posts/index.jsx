@@ -27,7 +27,6 @@ function Posts(props) {
                     }
                 });
                 setPosts(res);
-            
                 
             })
             .catch((err) => console.log("err -->", err))

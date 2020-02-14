@@ -49,8 +49,8 @@ function App(props) {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/home" component={Home} />
-        <Route  exact path="/addpost" component={AddPost} />
-        
+        <Route exact path="/addpost" component={AddPost} />
+        <Route exact path="/posts" component={Posts} />
       </Switch>
     </>
   );
