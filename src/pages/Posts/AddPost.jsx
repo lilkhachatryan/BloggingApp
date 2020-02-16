@@ -6,11 +6,9 @@ import {poster} from "./actions";
 import validatePost from "./validatePost";
 import useForm from "../../../src/utils/useForm";
 import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
-
 
 function AddPost(props) {
-    // const [title, setTitle] = useState('');
+    //const [state, setState] = useState();
     // const [about, setAbout] = useState('');
 
     // const handleTitleChange = event => setTitle(event.target.value);
@@ -24,20 +22,14 @@ function AddPost(props) {
     function submit() {
         poster(values.title,values.about);
          history.push('/posts');
-
-
     };
-    const handleFileChange = (e)=>{
-        if(e.target.files[0]){
-            const {image} = e.target.files[0];
-            
-        }
-        console.log("zzz", e.target.files[0]);
+   const handleFileChange = () => {
+       
+   } 
 
-    }
+    
 
     return (
-        <div>
             <>
                 <div className="create-post">
                     <Form.Row>
@@ -103,24 +95,19 @@ function AddPost(props) {
                             </Col>
                         </Form.Group>
                     </Form.Row>
-                    
-
-                    
+                   
                 </div>
             </>
             
-                    
-        </div>
     )
 }
 
 const mapDispatchToProps = (dispatch) => {
    return {
-        poster: (title, about) => dispatch(poster({title,about,}))
+        poster: (title, about) => dispatch(poster({title,about}))
     }
-};
+}
 
 export default connect(null, mapDispatchToProps)(AddPost);
-
 
 

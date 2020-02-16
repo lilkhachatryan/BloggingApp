@@ -2,7 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {connect} from "react-redux";
 import{Card,ListGroup,ListGroupItem ,Row,Col,Table,Form,FormControl,Button} from "react-bootstrap";
 import ReadMoreReact from 'read-more-react';
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
+import {storage} from "../../../src/config/firebase";
+
 
 // import {useActions} from'./actions';
 import {myFirebase} from '../../config/firebase';
@@ -36,20 +38,24 @@ function Posts(props) {
         fetchPosts();
     }, []);
     console.log("posts", posts);
-
+    
+    
     return (
     <>
         {posts.map(p =>
-            
+            <div>
             <Card style={{ width: '50rem' }} className = "mx-auto" key = {p.id}>
                 <Card.Body>
                     <Card.Title>{p.title}</Card.Title>
                     <Card.Text>
                     {p.content}
-                        <Link to={"/post/" + p.id}>read more...</Link>                       
+                  <Link to={"/post/" + p.id}>read more...</Link>                       
                     </Card.Text>
                 </Card.Body>
             </Card>
+            <img alt ="jjj" />
+                
+            </div>
         )}
     </>
     )

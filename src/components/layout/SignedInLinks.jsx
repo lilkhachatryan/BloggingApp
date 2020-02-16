@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Nav, NavDropdown, Form, Button, FormControl, Image } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+//import { LinkContainer } from 'react-router-bootstrap';
 import Avatar from '../../assets/images/user.png';
 import Logout from "../../pages/Auth/Logout";
 
