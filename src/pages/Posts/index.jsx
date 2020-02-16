@@ -38,6 +38,7 @@ function Posts(props) {
         fetchPosts();
     }, []);
     console.log("posts", posts);
+
     
     
     return (
@@ -46,15 +47,14 @@ function Posts(props) {
             <div>
             <Card style={{ width: '50rem' }} className = "mx-auto" key = {p.id}>
                 <Card.Body>
+                    <Card.Img variant="top" src={p.image}  alt = "nkar"/>
                     <Card.Title>{p.title}</Card.Title>
                     <Card.Text>
                     {p.content}
                   <Link to={"/post/" + p.id}>read more...</Link>                       
                     </Card.Text>
                 </Card.Body>
-            </Card>
-            <img alt ="jjj" />
-                
+            </Card>                
             </div>
         )}
     </>

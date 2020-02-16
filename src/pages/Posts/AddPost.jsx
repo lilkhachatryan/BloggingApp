@@ -6,13 +6,15 @@ import {poster} from "./actions";
 import validatePost from "./validatePost";
 import useForm from "../../../src/utils/useForm";
 import IconButton from '@material-ui/core/IconButton';
+import { storage } from "../../../src/config/firebase";
+
 
 function AddPost(props) {
     //const [state, setState] = useState();
     // const [about, setAbout] = useState('');
 
-    // const handleTitleChange = event => setTitle(event.target.value);
-    // const handleAboutChange = event => setAbout(event.target.value);
+    const [imgAsFile, setImgAsFile] = useState(new File([], ''));
+    const [imgAsUrl, setImgAsUrl] = useState({imgUrl:""});
 
     const { values, errors, handleChange, handleSubmit } = useForm(submit, validatePost, {title:"",about: ""} );
 
@@ -20,14 +22,38 @@ function AddPost(props) {
      } = props;
 
     function submit() {
-        poster(values.title,values.about);
-         history.push('/posts');
+        // uploadFile();
+        poster(values.title,values.about, imgAsFile);
+        // history.push('/posts')
     };
-   const handleFileChange = () => {
-       
-   } 
+    const handleImgAsFile = (e)=>{
+        if(e.target.files[0]){
+            const image = e.target.files[0];
+            console.log(image, "image");
+            setImgAsFile(image);
+        }
+        console.log(imgAsFile,"imgAsFile");
 
-    
+    };
+      
+    // const uploadFile = () => {
+    //     if(imgAsFile === '') {
+    //         console.error(`not an image, the image file is a ${typeof(imgAsFile)}`)
+    //     }
+    //     const uploadTask = storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile);
+    //     uploadTask.on('state_changed', 
+    //     (snapShot) => {
+    //         console.log(snapShot)
+    //     }, (err) => {
+    //         console.log(err)
+    //     }, () => {
+    //         storage.ref('images').child(imgAsFile.name).getDownloadURL()
+    //         .then(fireBaseUrl => {
+    //             setImgAsUrl(prevObject => ({...prevObject, imgUrl: fireBaseUrl}))
+    //         })
+    //     })
+    // };
+  
 
     return (
             <>
@@ -75,7 +101,7 @@ function AddPost(props) {
                         </Form.Group>
                     </Form.Row>
                     <div>
-                    <input accept="image/*"  id="icon-button-file" type="file" name = "file" onChange ={handleFileChange} />
+                    <input accept="image/*"  id="icon-button-file" type="file" name = "file" onChange ={handleImgAsFile} />
                     <label htmlFor="icon-button-file">
                     <IconButton color="primary" aria-label="upload picture" component="span">
                     </IconButton>
@@ -104,7 +130,7 @@ function AddPost(props) {
 
 const mapDispatchToProps = (dispatch) => {
    return {
-        poster: (title, about) => dispatch(poster({title,about}))
+        poster: (title, about, imgAsFile) => dispatch(poster({title,about, imgAsFile}))
     }
 }
 
