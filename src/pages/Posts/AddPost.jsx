@@ -2,32 +2,35 @@ import React,{ useState }from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import {} from "react-router-dom";
 import {connect} from "react-redux";
-import {poster} from "./actions";
+import { poster } from "./actions";
 import validatePost from "./validatePost";
 import useForm from "../../../src/utils/useForm";
 import IconButton from '@material-ui/core/IconButton';
+import { storage } from "../../../src/config/firebase";
+
 
 function AddPost(props) {
     //const [state, setState] = useState();
     // const [about, setAbout] = useState('');
 
-    // const handleTitleChange = event => setTitle(event.target.value);
-    // const handleAboutChange = event => setAbout(event.target.value);
+    const [imgAsFile, setImgAsFile] = useState(new File([], ''));
+    const [imgAsUrl, setImgAsUrl] = useState({imgUrl:""});
 
     const { values, errors, handleChange, handleSubmit } = useForm(submit, validatePost, {title:"",about: ""} );
 
-    const { poster, history
-     } = props;
+    const { history } = props;
 
-    function submit() {
-        poster(values.title,values.about);
-         history.push('/posts');
+    async function submit() {
+        await poster({title: values.title, about: values.about, imgAsFile});
+        history.push('/posts');
+    }
+
+    const handleImgAsFile = (e)=>{
+        if (e.target.files[0]){
+            const image = e.target.files[0];
+            setImgAsFile(image);
+        }
     };
-   const handleFileChange = () => {
-       
-   } 
-
-    
 
     return (
             <>
@@ -75,7 +78,7 @@ function AddPost(props) {
                         </Form.Group>
                     </Form.Row>
                     <div>
-                    <input accept="image/*"  id="icon-button-file" type="file" name = "file" onChange ={handleFileChange} />
+                    <input accept="image/*"  id="icon-button-file" type="file" name = "file" onChange ={handleImgAsFile} />
                     <label htmlFor="icon-button-file">
                     <IconButton color="primary" aria-label="upload picture" component="span">
                     </IconButton>
@@ -102,12 +105,6 @@ function AddPost(props) {
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
-   return {
-        poster: (title, about) => dispatch(poster({title,about}))
-    }
-}
-
-export default connect(null, mapDispatchToProps)(AddPost);
+export default connect()(AddPost);
 
 

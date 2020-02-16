@@ -13,7 +13,7 @@ export default (state = _initialState, action) => {
             };
         case ADD_POST_SUCCESS: 
             return {                
-                posts: payload.posts
+                posts: payload
             }
         case ADD_POST_ERROR: 
             return {

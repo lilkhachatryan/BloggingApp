@@ -24,7 +24,7 @@ const SignedInLinks = () => {
                     <Image src={Avatar} roundedCircle style={{height: 50, width: 50}} className="ml-sm-2"/>
                 } id="basic-nav-dropdown">
                 <NavDropdown.Item as={NavLink} to="/addpost">New Story</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Stories</NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/posts">Stories</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4">Reading List</NavDropdown.Item>
                 <NavDropdown.Divider />
