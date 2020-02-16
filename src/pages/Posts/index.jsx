@@ -18,6 +18,7 @@ function Posts(props) {
 
         ref.get()
             .then((asd) => {
+                console.log("get postsss");
                 let res = [];
                  asd.docs.map(doc => {
                     if (doc.exists) {
@@ -37,15 +38,12 @@ function Posts(props) {
     useEffect(() => {
         fetchPosts();
     }, []);
-    console.log("posts", posts);
-
-    
     
     return (
     <>
         {posts.map(p =>
-            <div>
-            <Card style={{ width: '50rem' }} className = "mx-auto" key = {p.id}>
+            <div key={p.id}>
+            <Card style={{ width: '50rem' }} className = "mx-auto" >
                 <Card.Body>
                     <Card.Img variant="top" src={p.image}  alt = "nkar"/>
                     <Card.Title>{p.title}</Card.Title>

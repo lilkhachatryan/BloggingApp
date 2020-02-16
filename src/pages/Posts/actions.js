@@ -41,51 +41,28 @@ export function useActions() {
 }
 
 export const poster = ({title, about, imgAsFile}) => {
-    return (dispatch, getState) => {
-        const image = '';
-            uploadFile(imgAsFile).then(res => {
-                console.log("upload res from then", res);
-                image = res;
-            });
-            // console.log("upload res image", image);
-            const post = {
-                title: title,
-                content: about,
-                image:  image
-            };
-            dispatch(addPost(post));            
-    }
-                
-}
-const addPost = (post) => {
-    return (dispatch) => {
-        myFirebase.firestore().collection("posts").doc().set(post)
-            .then((res) => {                    
-                dispatch(addPostSuccessAction(post));
-                console.log("post", res);
-            })
-            .catch(err => dispatch(addPostErrorAction(post))
-            )
-        }
-};
-
-export const uploadFile = (imgAsFile) => {
     if(imgAsFile === '') {
         console.error(`not an image, the image file is a ${typeof(imgAsFile)}`)
     }
-    const uploadTask = storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile);
-    uploadTask.on('state_changed', 
-    (snapShot) => {
-        console.log(snapShot)
-    }, (err) => {
-        console.log(err)
-    }, () => {
-        return storage.ref('images').child(imgAsFile.name).getDownloadURL()
-        // .then(fireBaseUrl => {
-        //     console.log("file res", fireBaseUrl);
-        //     // setImgAsUrl(prevObject => ({...prevObject, imgUrl: fireBaseUrl}))
-        //     return fireBaseUrl;
-        // })
-    })
+    const post = {
+        title: title,
+        content: about
+    };
+    return storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile)
+            .then(async () => {
+                await getDownloadUrl(imgAsFile, post)
+            })
+};
+
+const getDownloadUrl = (imgAsFile, post) => {
+    return storage.ref('images').child(imgAsFile.name).getDownloadURL()
+            .then(async fireBaseUrl => {
+                post.image = fireBaseUrl;
+                await addPost(post)
+            });
+};
+
+const addPost = (post) => {
+    return myFirebase.firestore().collection("posts").doc().set(post);
 };
 

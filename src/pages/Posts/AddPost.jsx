@@ -2,7 +2,7 @@ import React,{ useState }from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import {} from "react-router-dom";
 import {connect} from "react-redux";
-import {poster} from "./actions";
+import { poster } from "./actions";
 import validatePost from "./validatePost";
 import useForm from "../../../src/utils/useForm";
 import IconButton from '@material-ui/core/IconButton';
@@ -18,42 +18,19 @@ function AddPost(props) {
 
     const { values, errors, handleChange, handleSubmit } = useForm(submit, validatePost, {title:"",about: ""} );
 
-    const { poster, history
-     } = props;
+    const { history } = props;
 
-    function submit() {
-        // uploadFile();
-        poster(values.title,values.about, imgAsFile);
-        // history.push('/posts')
-    };
+    async function submit() {
+        await poster({title: values.title, about: values.about, imgAsFile});
+        history.push('/posts');
+    }
+
     const handleImgAsFile = (e)=>{
-        if(e.target.files[0]){
+        if (e.target.files[0]){
             const image = e.target.files[0];
-            console.log(image, "image");
             setImgAsFile(image);
         }
-        console.log(imgAsFile,"imgAsFile");
-
     };
-      
-    // const uploadFile = () => {
-    //     if(imgAsFile === '') {
-    //         console.error(`not an image, the image file is a ${typeof(imgAsFile)}`)
-    //     }
-    //     const uploadTask = storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile);
-    //     uploadTask.on('state_changed', 
-    //     (snapShot) => {
-    //         console.log(snapShot)
-    //     }, (err) => {
-    //         console.log(err)
-    //     }, () => {
-    //         storage.ref('images').child(imgAsFile.name).getDownloadURL()
-    //         .then(fireBaseUrl => {
-    //             setImgAsUrl(prevObject => ({...prevObject, imgUrl: fireBaseUrl}))
-    //         })
-    //     })
-    // };
-  
 
     return (
             <>
@@ -128,12 +105,6 @@ function AddPost(props) {
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
-   return {
-        poster: (title, about, imgAsFile) => dispatch(poster({title,about, imgAsFile}))
-    }
-}
-
-export default connect(null, mapDispatchToProps)(AddPost);
+export default connect()(AddPost);
 
 
