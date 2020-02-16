@@ -1,5 +1,7 @@
 import { createAction } from "redux-actions";
 import { myFirebase } from "../../../config/firebase";
+import {setLocalStorage} from "../../../utils/localStorage"
+
 
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 const registerSuccessAction = createAction(REGISTER_SUCCESS);
@@ -20,10 +22,12 @@ export const register = ({email, password}) => {
                     username: email
                 };
 
-                myFirebase.firestore().collection("users").doc(id).set(user).then(() => {
-                    dispatch(registerSuccessAction(user));
-                });
-            })
-            .catch(err => dispatch(registerErrorAction(err)))
+
+    myFirebase.firestore().collection("users").doc(id).set(user).then(() => {
+        setLocalStorage('user',JSON.stringify(user));
+        dispatch(registerSuccessAction(user));
+    });
+        })
+    .catch(err => dispatch(registerErrorAction(err)))
     }
 };
