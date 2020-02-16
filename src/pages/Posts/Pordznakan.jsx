@@ -1,5 +1,5 @@
-import storage from "../../../src/config/firebase";
-import React, {useState}from 'react';
+import { storage } from "../../../src/config/firebase";
+import React, { useState }from 'react';
 import { Button, Form, Col, Row } from "react-bootstrap";
 import IconButton from '@material-ui/core/IconButton';
 
@@ -17,18 +17,17 @@ function Pordznakan() {
             setImgAsFile(image);
 
             uploadFile();
-        };
-    }
-        const handleFireUpload = e =>{
-            e.preventDefault();
-            console.log("start of upload");
-       }
-
-       if(imgAsFile === '') {
-        console.error(`not an image, the image file is a ${typeof(imgAsFile)}`)
-      }
+        }
+    };
+    const handleFireUpload = e =>{
+        e.preventDefault();
+        console.log("start of upload");
+    };
       
     const uploadFile = () => {
+        if(imgAsFile === '') {
+            console.error(`not an image, the image file is a ${typeof(imgAsFile)}`)
+        }
         const uploadTask = storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile);
       uploadTask.on('state_changed', 
       (snapShot) => {
@@ -45,7 +44,7 @@ function Pordznakan() {
            setImgAsUrl(prevObject => ({...prevObject, imgUrl: fireBaseUrl}))
          })
       })
-    }
+    };
 
         return (
         <form onSubmit = {handleFireUpload}>
