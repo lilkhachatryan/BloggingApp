@@ -4,10 +4,14 @@ import { Nav, NavDropdown, Form, Button, FormControl, Image } from 'react-bootst
 //import { LinkContainer } from 'react-router-bootstrap';
 import Avatar from '../../assets/images/user.png';
 import Logout from "../../pages/Auth/Logout";
+import { connect } from "react-redux";
 
 
-const SignedInLinks = () => {
-        return(
+const SignedInLinks = (props) => {
+    const { user } = props;
+    let defaultAvatar = user.firstName.charAt(0) + user.lastName.charAt(0);
+    defaultAvatar = defaultAvatar.toUpperCase();
+    return(
         <>
             <Nav className="ml-auto">
                 <Nav.Link href="#home">Home</Nav.Link>
@@ -16,12 +20,21 @@ const SignedInLinks = () => {
             <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                 <Button variant="outline-success">Search</Button>
-                {/*<Button variant="outline-success"><Link to="/addpost">Add Post</Link></Button>*/}
             </Form>
             <Logout />
 
             <NavDropdown title={
-                    <Image src={Avatar} roundedCircle style={{height: 50, width: 50}} className="ml-sm-2"/>
+                    user.avatar ? <Image src={Avatar} roundedCircle style={{height: 50, width: 50}} className="ml-sm-2"/>
+                    : <div style={{
+                                height: 50,
+                                width: 50,
+                                borderRadius: '50%',
+                                backgroundColor: '#007bff',
+                                textAlign: 'center',
+                                fontSize: 26,
+                                color: '#fff'
+                            }}
+                           className="ml-sm-2">{defaultAvatar}</div>
                 } id="basic-nav-dropdown">
                 <NavDropdown.Item as={NavLink} to="/addpost">New Story</NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to="/posts">Stories</NavDropdown.Item>
@@ -32,6 +45,11 @@ const SignedInLinks = () => {
             </NavDropdown>
         </>
     )
-}
+};
 
-export default SignedInLinks;
+const  mapStateToProps = (state) => {
+    return {
+        user: state.login.user
+    };
+};
+export default connect(mapStateToProps)(SignedInLinks);

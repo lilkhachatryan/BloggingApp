@@ -63,6 +63,6 @@ const mapStateToProps = state => {
     isAuthenticated: state.login.isAuthenticated,
     isVerifying: state.login.isVerifying
   }
-}
+};
 
 export default connect(mapStateToProps)(App);

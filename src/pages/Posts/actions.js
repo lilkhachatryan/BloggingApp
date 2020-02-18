@@ -2,8 +2,6 @@ import { createAction } from 'redux-actions';
 import { useDispatch } from 'react-redux';
 import {myFirebase} from '../../config/firebase';
 
-import { storage } from "../../../src/config/firebase";
-
 export const GET_POSTS = 'GET_POSTS';
 const getPostsAction = createAction(GET_POSTS);
 
@@ -74,10 +72,10 @@ export const poster = ({title, about, imgAsFile}) => {
         title: title,
         content: about
     };
-    return function(dispatch) {
+    return function(dispatch, getState, {storage}) {
         return storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile)
             .then(() => {
-                return getDownloadUrl(imgAsFile, post).then((fireBaseUrl) => {
+                return dispatch(getDownloadUrl(imgAsFile, post)).then((fireBaseUrl) => {
                     post.image = fireBaseUrl;
                     return addPost(post);
                 });
@@ -86,15 +84,9 @@ export const poster = ({title, about, imgAsFile}) => {
 };
 
 const getDownloadUrl = (imgAsFile, post) => {
-    // return function(dispatch) {
-        return storage.ref('images').child(imgAsFile.name).getDownloadURL()
-            // .then((fireBaseUrl) => {
-            //     post.image = fireBaseUrl;
-            //     dispatch(addPost(post)).then((res) => {
-            //         console.log("res from 222 dispathc", res);
-            //     })
-            // });
-    // }
+    return function(dispatch, getState, {storage}) {
+        return storage.ref('images').child(imgAsFile.name).getDownloadURL();
+    }
 };
 
 const addPost = (post) => {
