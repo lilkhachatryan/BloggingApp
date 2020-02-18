@@ -18,7 +18,8 @@ function Posts(props) {
             .collection('users')
             .doc(user.id);
 
-        const ref = myFirebase.firestore().collection('posts').where("user_id", "==", userRef);
+        const ref = myFirebase.firestore().collection('posts').where("user_id", "==", userRef)
+            .orderBy("created_at");
 
         ref.get()
             .then((asd) => {
