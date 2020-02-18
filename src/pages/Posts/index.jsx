@@ -11,14 +11,17 @@ import {myFirebase} from '../../config/firebase';
 
 function Posts(props) {
     const [posts, setPosts] = useState([]);
-    
+    const { user } = props;
+    console.log("user.id", user.id);
     const fetchPosts = () => {
+        const userRef = myFirebase.firestore()
+            .collection('users')
+            .doc(user.id);
 
-        const ref = myFirebase.firestore().collection('posts');
+        const ref = myFirebase.firestore().collection('posts').where("user_id", "==", userRef);
 
         ref.get()
             .then((asd) => {
-                console.log("get postsss");
                 let res = [];
                  asd.docs.map(doc => {
                     if (doc.exists) {
@@ -29,6 +32,7 @@ function Posts(props) {
                         console.log("No such document!");
                     }
                 });
+                console.log("get postsss", res);
                 setPosts(res);
                 
             })
@@ -58,14 +62,14 @@ function Posts(props) {
     </>
     )
 }
-// function mapStateToProps(state) {
-//     return {
-//         posts: state.posts
-//     }
-// }
+function mapStateToProps(state) {
+    return {
+        user: state.login.user
+    }
+}
 
 // const actionCreators = {
 //
 // };
 
-export default connect()(Posts) ;
+export default connect(mapStateToProps)(Posts) ;

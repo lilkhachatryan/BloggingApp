@@ -109,7 +109,7 @@ export const getUser = (uid) => {
         ref.get()
             .then((doc) => {
                 if (doc.exists) {
-                    setLocalStorage('user', JSON.stringify(doc.data()));
+                    setLocalStorage('user', JSON.stringify({...doc.data(), id: uid}));
                     loginSuccess(dispatch, doc.data());
                 }
             })

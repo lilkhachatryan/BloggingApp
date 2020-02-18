@@ -24,7 +24,7 @@ export const register = ({email, firstName, lastName, userName, password}) => {
 
 
     myFirebase.firestore().collection("users").doc(id).set(user).then(() => {
-        setLocalStorage('user',JSON.stringify(user));
+        setLocalStorage('user',JSON.stringify({...user, id}));
         dispatch(registerSuccessAction(user));
     });
         })
