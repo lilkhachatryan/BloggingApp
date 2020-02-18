@@ -40,6 +40,32 @@ export function useActions() {
     }
 }
 
+// export const poster = ({title, about, imgAsFile}) => {
+//     if(imgAsFile === '') {
+//         console.error(`not an image, the image file is a ${typeof(imgAsFile)}`)
+//     }
+//     const post = {
+//         title: title,
+//         content: about
+//     };
+//     return storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile)
+//             .then(async () => {
+//                 await getDownloadUrl(imgAsFile, post)
+//             })
+// };
+//
+// const getDownloadUrl = (imgAsFile, post) => {
+//     return storage.ref('images').child(imgAsFile.name).getDownloadURL()
+//             .then(async fireBaseUrl => {
+//                 post.image = fireBaseUrl;
+//                 await addPost(post)
+//             });
+// };
+//
+// const addPost = (post) => {
+//     return myFirebase.firestore().collection("posts").doc().set(post);
+// };
+
 export const poster = ({title, about, imgAsFile}) => {
     if(imgAsFile === '') {
         console.error(`not an image, the image file is a ${typeof(imgAsFile)}`)
@@ -48,21 +74,30 @@ export const poster = ({title, about, imgAsFile}) => {
         title: title,
         content: about
     };
-    return storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile)
-            .then(async () => {
-                await getDownloadUrl(imgAsFile, post)
+    return function(dispatch) {
+        return storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile)
+            .then(() => {
+                return getDownloadUrl(imgAsFile, post).then((fireBaseUrl) => {
+                    post.image = fireBaseUrl;
+                    return addPost(post);
+                });
             })
+    }
 };
 
 const getDownloadUrl = (imgAsFile, post) => {
-    return storage.ref('images').child(imgAsFile.name).getDownloadURL()
-            .then(async fireBaseUrl => {
-                post.image = fireBaseUrl;
-                await addPost(post)
-            });
+    // return function(dispatch) {
+        return storage.ref('images').child(imgAsFile.name).getDownloadURL()
+            // .then((fireBaseUrl) => {
+            //     post.image = fireBaseUrl;
+            //     dispatch(addPost(post)).then((res) => {
+            //         console.log("res from 222 dispathc", res);
+            //     })
+            // });
+    // }
 };
 
 const addPost = (post) => {
-    return myFirebase.firestore().collection("posts").doc().set(post);
+        return myFirebase.firestore().collection("posts").doc().set(post);
 };
 

@@ -18,11 +18,14 @@ function AddPost(props) {
 
     const { values, errors, handleChange, handleSubmit } = useForm(submit, validatePost, {title:"",about: ""} );
 
-    const { history } = props;
+    const { dispatch, history } = props;
 
     async function submit() {
-        await poster({title: values.title, about: values.about, imgAsFile});
-        history.push('/posts');
+        // await poster({title: values.title, about: values.about, imgAsFile});
+        dispatch(poster({title: values.title, about: values.about, imgAsFile})).then(() => {
+            console.log("endd");
+            history.push('/posts');
+        });
     }
 
     const handleImgAsFile = (e)=>{
