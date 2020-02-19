@@ -19,12 +19,15 @@ function AddPost(props) {
     const { values, errors, handleChange, handleSubmit } = useForm(submit, validatePost, {title:"",about: ""} );
 
     const { dispatch, history } = props;
+    const { user } = props;
 
     async function submit() {
         // await poster({title: values.title, about: values.about, imgAsFile});
-        dispatch(poster({title: values.title, about: values.about, imgAsFile})).then(() => {
+        dispatch(poster({title: values.title, about: values.about, user_id: user.id,created_at: values.created_at, imgAsFile})).then(() => {
             console.log("endd");
+            console.log("userid",user.id);
             history.push('/posts');
+
         });
     }
 
@@ -108,6 +111,13 @@ function AddPost(props) {
     )
 }
 
-export default connect()(AddPost);
+
+function mapStateToProps(state) {
+    return {
+        user: state.login.user
+    }
+}
+
+export default connect(mapStateToProps)(AddPost);
 
 

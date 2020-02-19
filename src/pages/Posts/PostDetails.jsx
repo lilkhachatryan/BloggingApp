@@ -30,8 +30,6 @@ import {Container} from "react-bootstrap"
     useEffect(() => {
         fetchPost();
     }, []);
-    console.log(post);
-
     
      return (
 
@@ -39,6 +37,7 @@ import {Container} from "react-bootstrap"
          <Container>
             <h1>{post.title}</h1>
             <p>{post.content}</p>
+            <p>{JSON.stringify(post.created_at)}</p>
         </Container>
     </Jumbotron>
      )

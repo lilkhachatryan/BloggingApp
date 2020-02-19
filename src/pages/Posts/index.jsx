@@ -54,7 +54,7 @@ function Posts(props) {
                     <Card.Title>{p.title}</Card.Title>
                     <Card.Text>
                     {p.content}
-                  <Link to={"/post/" + p.id}>read more...</Link>                       
+                    <Link to={"/post/" + p.id}>read more...</Link>                       
                     </Card.Text>
                 </Card.Body>
             </Card>                

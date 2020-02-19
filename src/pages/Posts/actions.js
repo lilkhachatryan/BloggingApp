@@ -64,13 +64,15 @@ export function useActions() {
 //     return myFirebase.firestore().collection("posts").doc().set(post);
 // };
 
-export const poster = ({title, about, imgAsFile}) => {
+export const poster = ({title, about,user_id,created_at, imgAsFile}) => {
     if(imgAsFile === '') {
         console.error(`not an image, the image file is a ${typeof(imgAsFile)}`)
     }
     const post = {
         title: title,
-        content: about
+        content: about,
+        user_id: user_id,
+        created_at: (new Date()).toDateString()
     };
     return function(dispatch, getState, {storage}) {
         return storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile)
