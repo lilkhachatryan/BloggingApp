@@ -11,6 +11,7 @@ const useForm = (callback, validate, defaultState) => {
             [name]: value}
         );
         setErrors(validate({[name]: value}));
+        console.log(value);
     };
 
     const handleSubmit = () => {

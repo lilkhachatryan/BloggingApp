@@ -9,7 +9,7 @@ const registerSuccessAction = createAction(REGISTER_SUCCESS);
 export const REGISTER_ERROR = "REGISTER_ERROR";
 const registerErrorAction = createAction(REGISTER_ERROR);
 
-export const register = ({email, firstName, lastName, userName, password}) => {
+export const register = ({email, firstName, lastName, userName, password,repeatPassword}) => {
     return (dispatch, getState) => {
         myFirebase.auth().createUserWithEmailAndPassword(email, password)
             .then(res => {
@@ -19,7 +19,8 @@ export const register = ({email, firstName, lastName, userName, password}) => {
                     firstName: firstName,
                     lastName: lastName,
                     userName: userName, 
-                    password: password,               
+                    password: password,
+                    repeatPassword: repeatPassword               
                 };
 
 
