@@ -9,7 +9,7 @@ import validateRegistr from "./validateRegistr";
 const Register = (props) => {
 
     const { values, errors, handleChange, handleSubmit } = useForm(submit, validateRegistr, 
-        {email: '', firstName: '', lastName: '', userName: '', password: '',repeatPassword : ''});
+        {email: '', firstName: '', lastName: '', userName: '', password: '', repeatPassword : ''});
     //const [email, setEmail] = useState('');
     //const [firstName, setFirstName] = useState('');
     //const [lastName, setLastName] = useState('');
@@ -23,9 +23,10 @@ const Register = (props) => {
     //const handlePasswordChange = event => setPassword(event.target.value);   
     const { register, history } = props;
     function submit() {
-        register(values.email, values.firstName, values.lastName, values.userName, values.password, values.repeatPassword);
-        history.push('/');
-    };
+        register(values).then(() => {
+            history.push('/');
+        });
+    }
     
     // const handleSubmit = () => {
     //   register(email, firstName, lastName, userName, password);
@@ -180,8 +181,7 @@ const Register = (props) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        register: (email, firstName, lastName, userName, password,repeatPassword) => 
-            dispatch(register({email, firstName, lastName, userName, password,repeatPassword}))
+        register: (values) => dispatch(register({...values}))
     }
 };
 

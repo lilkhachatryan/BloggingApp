@@ -22,11 +22,12 @@ import PostDetails from "./pages/Posts/PostDetails";
 import Pordznakan from "./pages/Posts/Pordznakan"
 
 function App(props) {
-  const { isAuthenticated, isVerifying } = props;
+  const { isAuthenticated, isVerifying, user } = props;
   return (
     <>
       <Header 
-        isAuthenticated={isAuthenticated} />
+        isAuthenticated={isAuthenticated}
+        user={user}/>
       <Switch>
         <ProtectedRoute
           exact
@@ -61,7 +62,8 @@ function App(props) {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.login.isAuthenticated,
-    isVerifying: state.login.isVerifying
+    isVerifying: state.login.isVerifying,
+    user: state.login.user
   }
 };
 

@@ -62,7 +62,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isLoggingIn: false,
                 isAuthenticated: true,
-                user: payload.user
+                user: payload
             };
         default: 
             return state;

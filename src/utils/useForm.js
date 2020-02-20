@@ -10,8 +10,11 @@ const useForm = (callback, validate, defaultState) => {
             ...values,
             [name]: value}
         );
-        setErrors(validate({[name]: value}));
-        console.log(value);
+        if (name === 'repeatPassword') {
+            setErrors(validate({[name]: value, password: values.password}));
+        } else {
+            setErrors(validate({[name]: value}));
+        }
     };
 
     const handleSubmit = () => {
@@ -27,7 +30,6 @@ const useForm = (callback, validate, defaultState) => {
             try {
                 callback();
             } catch (e) {
-                console.log("err", e);
                 setIsSubmitting(false);
             }
         } else {

@@ -42,8 +42,8 @@ export default function validateRegistr(values) {
     }
 
     if (values.hasOwnProperty('repeatPassword')) {
-        if (!values.password==values.repeatPassword) {
-        errors.repeatPassword = 'Repeat Password';
+        if (values.password !== values.repeatPassword) {
+            errors.repeatPassword = 'Repeat Password';
         }
     }
     return errors;

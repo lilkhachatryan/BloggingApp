@@ -11,7 +11,7 @@ const registerErrorAction = createAction(REGISTER_ERROR);
 
 export const register = ({email, firstName, lastName, userName, password,repeatPassword}) => {
     return (dispatch, getState) => {
-        myFirebase.auth().createUserWithEmailAndPassword(email, password)
+        return myFirebase.auth().createUserWithEmailAndPassword(email, password)
             .then(res => {
                 const id = res.user.uid;
                 const user = {
@@ -23,12 +23,11 @@ export const register = ({email, firstName, lastName, userName, password,repeatP
                     repeatPassword: repeatPassword               
                 };
 
-
-    myFirebase.firestore().collection("users").doc(id).set(user).then(() => {
-        setLocalStorage('user',JSON.stringify({...user, id}));
-        dispatch(registerSuccessAction(user));
-    });
-        })
-    .catch(err => dispatch(registerErrorAction(err)))
-    }
+                return myFirebase.firestore().collection("users").doc(id).set(user).then(() => {
+                    setLocalStorage('user',JSON.stringify({...user, id}));
+                    dispatch(registerSuccessAction(user));
+                });
+            })
+            .catch(err => dispatch(registerErrorAction(err)))
+            }
 };

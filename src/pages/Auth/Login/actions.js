@@ -63,10 +63,10 @@ function logoutError(dispatch) {
 export const loginUser = (email, password) => {
     return (dispatch) => {
         loginRequest(dispatch);
-        myFirebase.auth()
+        return myFirebase.auth()
             .signInWithEmailAndPassword(email, password)
             .then(res => {
-                dispatch(getUser(res.user.uid));
+                return dispatch(getUser(res.user.uid));
             })
             .catch(error => {
                 loginError(dispatch);
@@ -80,8 +80,8 @@ export const verifyAuth = () => {
         myFirebase.auth()
             .onAuthStateChanged(res => {
                 if (res !== null) {
-                    let user = getLocalStorage('user') || {};
-                    user = JSON.parse(user);
+                    let user = JSON.parse(getLocalStorage('user')) || {};
+                    // user = JSON.parse(user);
                     loginSuccess(dispatch, user);
                 }
                 verifySuccess(dispatch);
@@ -106,10 +106,11 @@ export const logoutUser = () => dispatch => {
 export const getUser = (uid) => {
     return (dispatch) => {
         const ref = myFirebase.firestore().collection('users').doc(uid);
-        ref.get()
+        return ref.get()
             .then((doc) => {
                 if (doc.exists) {
                     setLocalStorage('user', JSON.stringify({...doc.data(), id: uid}));
+                    console.log("login suss", doc.data());
                     loginSuccess(dispatch, doc.data());
                 }
             })
