@@ -109,9 +109,10 @@ export const getUser = (uid) => {
         return ref.get()
             .then((doc) => {
                 if (doc.exists) {
-                    setLocalStorage('user', JSON.stringify({...doc.data(), id: uid}));
-                    console.log("login suss", doc.data());
-                    loginSuccess(dispatch, doc.data());
+                    const user = {...doc.data(), id: uid};
+                    setLocalStorage('user', JSON.stringify(user));
+                    console.log("login suss", user);
+                    loginSuccess(dispatch, user);
                 }
             })
             .catch((err) => console.log("err -->", err))
