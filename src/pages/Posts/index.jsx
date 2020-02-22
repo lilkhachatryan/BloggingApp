@@ -20,7 +20,7 @@ function Posts(props) {
 
         const ref = myFirebase.firestore().collection('posts')
             .where("user_id", "==", userRef)
-            .orderBy("created_at");
+            // .orderBy("created_at");
 
         ref.get()
             .then((asd) => {

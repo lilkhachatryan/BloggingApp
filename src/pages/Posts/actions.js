@@ -68,10 +68,14 @@ export const poster = ({title, about,user_id,created_at, imgAsFile}) => {
     if(imgAsFile === '') {
         console.error(`not an image, the image file is a ${typeof(imgAsFile)}`)
     }
+    const userRef = myFirebase.firestore()
+        .collection('users')
+        .doc(user_id);
+    console.log("user", userRef);
     const post = {
         title: title,
         content: about,
-        user_id: 'users/' + user_id,
+        user_id: userRef,
         created_at: (new Date()).toDateString()
     };
     return function(dispatch, getState, {storage}) {
