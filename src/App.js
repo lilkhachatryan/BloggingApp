@@ -19,7 +19,6 @@ import Register from "./pages/Auth/Register";
 import AddPost from "./pages/Posts/AddPost";
 import Posts from "./pages/Posts";
 import PostDetails from "./pages/Posts/PostDetails";
-import Pordznakan from "./pages/Posts/Pordznakan"
 
 function App(props) {
   const { isAuthenticated, isVerifying, user } = props;
@@ -49,7 +48,6 @@ function App(props) {
             isVerifying={isVerifying}
         />
         <Route path="/login" component={Login} />
-        <Route exact path="/po" component={Pordznakan} />
         <Route path="/register" component={Register} />
         <Route path="/home" component={Home} />
         <Route exact path="/addpost" component={AddPost} />

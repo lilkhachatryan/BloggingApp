@@ -13,30 +13,22 @@ function AddPost(props) {
     //const [state, setState] = useState();
     // const [about, setAbout] = useState('');
 
-    const [imgAsFile, setImgAsFile] = useState(new File([], ''));
-    const [imgAsUrl, setImgAsUrl] = useState({imgUrl:""});
-
-    const { values, errors, handleChange, handleSubmit } = useForm(submit, validatePost, {title:"",about: ""} );
+    // const [imgAsFile, setImgAsFile] = useState(new File([], ''));
+    // const [imgAsUrl, setImgAsUrl] = useState({imgUrl:""});
+    const defaultState = {title:"", about: "", imgAsFile: new File([], '')};
+    const { values, errors, handleChange, handleSubmit } = useForm(submit, validatePost, defaultState);
 
     const { dispatch, history } = props;
     const { user } = props;
 
     async function submit() {
         // await poster({title: values.title, about: values.about, imgAsFile});
-        dispatch(poster({title: values.title, about: values.about, user_id: user.id,created_at: values.created_at, imgAsFile})).then(() => {
-            console.log("endd");
-            console.log("userid",user.id);
-            history.push('/posts');
-
-        });
+        dispatch(poster({title: values.title, about: values.about, user_id: user.id,created_at: values.created_at, imgAsFile: values.imgAsFile}))
+            .then(() => {
+                console.log("endd");
+                history.push('/posts');
+            });
     }
-
-    const handleImgAsFile = (e)=>{
-        if (e.target.files[0]){
-            const image = e.target.files[0];
-            setImgAsFile(image);
-        }
-    };
 
     return (
             <>
@@ -93,12 +85,28 @@ function AddPost(props) {
                         </select>   
                 
                     <div>
-                    <input accept="image/*"  id="icon-button-file" type="file" name = "file" onChange ={handleImgAsFile} />
-                    <label htmlFor="icon-button-file">
-                    <IconButton color="primary" aria-label="upload picture" component="span">
-                    </IconButton>
-                     </label>
-                     </div>              
+                        <Form.Group as={Row} controlId="formGridPassword">
+                            <Form.Label column sm={4} className="ml-sm-2">Post image</Form.Label>
+                            <Col sm={8}>
+                                <input accept="image/*"
+                                       className="ml-sm-2"
+                                       id="icon-button-file"
+                                       type="file"
+                                       name="imgAsFile"
+                                       onChange ={handleChange} />
+                                <Button
+                                    variant="outline-primary"
+                                    className="ml-sm-2"
+                                    size="0.25g"
+                                >Add Image</Button>
+                                {/*<label htmlFor="icon-button-file">*/}
+                                {/*    <IconButton color="primary" aria-label="upload picture" component="span">*/}
+                                {/*    </IconButton>*/}
+                                {/*</label>*/}
+                                {errors.about && <p className="ml-sm-2 error">{errors.about}</p>}
+                            </Col>
+                        </Form.Group>
+                    </div>
 
                     
                     <Form.Row>

@@ -12,5 +12,10 @@ export default function validatePost(values) {
             errors.about = 'Content is required';
         } 
     }
+    if (values.hasOwnProperty('imgAsFile')) {
+        if (validator.isEmpty(values.imgAsFile.name)) {
+            errors.imgAsFile = 'Image is required';
+        }
+    }
     return errors;
 }
