@@ -83,6 +83,15 @@ function AddPost(props) {
                             </Col>
                         </Form.Group>
                     </Form.Row>
+                        <h6>Тopic</h6>        
+                        <select className="controledSelect" id="categories">
+                        <option selected>Choose...</option>
+                        <option value="1">Travel</option>
+                        <option value="2">IT</option>
+                        <option value="3">Finance</option>
+
+                        </select>   
+                
                     <div>
                     <input accept="image/*"  id="icon-button-file" type="file" name = "file" onChange ={handleImgAsFile} />
                     <label htmlFor="icon-button-file">

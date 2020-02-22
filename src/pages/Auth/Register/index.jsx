@@ -99,13 +99,19 @@ const Register = (props) => {
 
                 <Form.Row>
                     <Form.Group as={Row} controlId="login">
-                        <Col sm={10}>
+                        <Col sm={6}>
                             <Button
                                 variant="outline-success"
                                 className="ml-sm-2"
-                                size="lg"
+                                size="small"
                                 onClick={handleSubmit}
                             >Register</Button>
+                             <Button
+                                variant="outline-success"
+                                className="ml-sm-2"
+                                size="small"
+                                onClick={handleSubmit}
+                            >Cancel</Button>
                         </Col>
                     </Form.Group>
                 </Form.Row>
