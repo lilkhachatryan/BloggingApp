@@ -34,7 +34,7 @@ import {Container} from "react-bootstrap"
      return (
 
     <Jumbotron fluid>
-         <Container>
+         <Container  className = "wholePost">
             <h1>{post.title}</h1>
             <p>{post.content}</p>
             <p>{JSON.stringify(post.created_at)}</p>
