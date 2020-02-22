@@ -42,6 +42,8 @@
 .img {
   max-width:70%;
   height:auto;
-
-
+}
+#postDetailsImage{
+  max-width:100%;
+  height:auto;
 }

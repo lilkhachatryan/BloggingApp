@@ -51,8 +51,8 @@ function Posts(props) {
             <div key={p.id}>
             <Card style={{ width: '50rem' }} className = "mx-auto" >
                 <Card.Body>
-                    <Card.Img variant="top" src={p.image} alt = "nkar" className="img"/>
                     <Card.Title>{p.title}</Card.Title>
+                    <Card.Img variant="top" src={p.image} alt = "nkar" className="img"/>
                     <Card.Text>
                     {p.content}
                     <Link to={"/post/" + p.id}>read more...</Link>                       
