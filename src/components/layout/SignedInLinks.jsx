@@ -4,7 +4,7 @@ import { Nav, NavDropdown, Form, Button, FormControl, Image } from 'react-bootst
 //import { LinkContainer } from 'react-router-bootstrap';
 import Avatar from '../../assets/images/user.png';
 import Logout from "../../pages/Auth/Logout";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 
 
 const SignedInLinks = (props) => {
@@ -47,9 +47,4 @@ const SignedInLinks = (props) => {
     )
 };
 
-const  mapStateToProps = (state) => {
-    return {
-        user: state.login.user
-    };
-};
-export default connect(mapStateToProps)(SignedInLinks);
+export default SignedInLinks;

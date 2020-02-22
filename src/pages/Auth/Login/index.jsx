@@ -18,7 +18,7 @@ function Login(props) {
 
     function submit() {
         loginUser(values.email, values.password);
-    };
+    }
 
     if (isAuthenticated) {
         return <Redirect to="/" />;
