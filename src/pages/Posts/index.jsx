@@ -11,7 +11,7 @@ import {myFirebase} from '../../config/firebase';
 
 function Posts(props) {
     const [posts, setPosts] = useState([]);
-    const { user } = props;
+    const { user,history } = props;
     console.log("user.id", user.id);
     const fetchPosts = () => {
         const userRef = myFirebase.firestore()
@@ -47,7 +47,8 @@ function Posts(props) {
     
     return (
     <>
-        {posts.map(p =>
+        {
+        posts.map(p =>
             <div key={p.id}>
             <Card style={{ width: '50rem' }} className = "mx-auto" >
                 <Card.Body>
@@ -58,6 +59,13 @@ function Posts(props) {
                     <Link to={"/post/" + p.id}>read more...</Link>                       
                     </Card.Text>
                 </Card.Body>
+                <Button
+                id = "topright"
+                variant="outline-primary"
+                size="sm"
+                onClick = {() => {
+                    myFirebase.firestore().collection("posts").doc(p.id).delete();
+                    window.location.reload()}}>X</Button>
             </Card>                
             </div>
         )}
