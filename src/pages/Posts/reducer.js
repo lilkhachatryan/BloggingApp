@@ -1,4 +1,5 @@
 import { GET_POSTS } from './actions';
+import {ADD_POST_SUCCESS, ADD_POST_ERROR } from './actions';
 import _initialState from './_initialState';
 
 export default (state = _initialState, action) => {
@@ -10,6 +11,14 @@ export default (state = _initialState, action) => {
                 ...state,
                 posts: payload.posts
             };
+        case ADD_POST_SUCCESS: 
+            return {                
+                posts: payload
+            }
+        case ADD_POST_ERROR: 
+            return {
+                ...state,
+            }
         default:
             return state;
     }

@@ -16,13 +16,17 @@ import Header from './components/layout/Header';
 import PostList from './pages/Posts';
 import Home from "./pages/Home";
 import Register from "./pages/Auth/Register";
+import AddPost from "./pages/Posts/AddPost";
+import Posts from "./pages/Posts";
+import PostDetails from "./pages/Posts/PostDetails";
 
 function App(props) {
-  const { isAuthenticated, isVerifying } = props;
+  const { isAuthenticated, isVerifying, user } = props;
   return (
     <>
       <Header 
-        isAuthenticated={isAuthenticated} />
+        isAuthenticated={isAuthenticated}
+        user={user}/>
       <Switch>
         <ProtectedRoute
           exact
@@ -37,9 +41,21 @@ function App(props) {
             isAuthenticated={isAuthenticated}
             isVerifying={isVerifying}
         />
+        <ProtectedRoute
+            path="/post/:id"
+            component={PostDetails}
+            isAuthenticated={isAuthenticated}
+            isVerifying={isVerifying}
+        />
+        {/* <ProtectedRoute
+            path="/addpost"
+            component={AddPost}
+        /> */}
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/home" component={Home} />
+        <Route path="/addpost" component={AddPost} />
+        <Route exact path="/posts" component={Posts} />
       </Switch>
     </>
   );
@@ -48,7 +64,8 @@ function App(props) {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.login.isAuthenticated,
-    isVerifying: state.login.isVerifying
+    isVerifying: state.login.isVerifying,
+    user: state.login.user
   }
 };
 

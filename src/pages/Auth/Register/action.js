@@ -1,5 +1,7 @@
 import { createAction } from "redux-actions";
 import { myFirebase } from "../../../config/firebase";
+import {setLocalStorage} from "../../../utils/localStorage"
+
 
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 const registerSuccessAction = createAction(REGISTER_SUCCESS);
@@ -7,23 +9,25 @@ const registerSuccessAction = createAction(REGISTER_SUCCESS);
 export const REGISTER_ERROR = "REGISTER_ERROR";
 const registerErrorAction = createAction(REGISTER_ERROR);
 
-export const register = ({email, password}) => {
+export const register = ({email, firstName, lastName, userName, password,repeatPassword}) => {
     return (dispatch, getState) => {
-        myFirebase.auth().createUserWithEmailAndPassword(email, password)
+        return myFirebase.auth().createUserWithEmailAndPassword(email, password)
             .then(res => {
                 const id = res.user.uid;
                 const user = {
                     email: email,
-                    firstName: "fAdmin",
-                    lastName: "lAdmin",
+                    firstName: firstName,
+                    lastName: lastName,
+                    userName: userName, 
                     password: password,
-                    username: email
+                    repeatPassword: repeatPassword               
                 };
 
-                myFirebase.firestore().collection("users").doc(id).set(user).then(() => {
+                return myFirebase.firestore().collection("users").doc(id).set(user).then(() => {
+                    setLocalStorage('user',JSON.stringify({...user, id}));
                     dispatch(registerSuccessAction(user));
                 });
             })
             .catch(err => dispatch(registerErrorAction(err)))
-    }
+            }
 };

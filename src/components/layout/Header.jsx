@@ -5,13 +5,14 @@ import SignedInLinks from './SignedInLinks.jsx';
 import SignedOutLinks from './SignOutLinks.jsx';
 
 const Header = (props) => {
-    const {isAuthenticated} = props;
+    const {isAuthenticated, user} = props;
+    const isUser = !!Object.keys(user).length;
     return (
-        <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="/">Blogging</Navbar.Brand>
+        <Navbar bg="light" expand="md">
+            <Navbar.Brand href="/"> Blogging</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />            
             <Navbar.Collapse id="basic-navbar-nav">
-                {isAuthenticated && <SignedInLinks />}
+                {isAuthenticated && isUser && <SignedInLinks user={user}/>}
                 {!isAuthenticated && <SignedOutLinks />}
             </Navbar.Collapse>
         </Navbar>

@@ -20,3 +20,36 @@
 .App-link {
   color: #09d3ac;
 }
+
+.dropdown {
+  margin-right: 60px;
+}
+.dropdown-item.active {
+  color: black!important;
+  background-color: white!important;
+}
+
+.dropdown-toggle::after {
+  display: none!important;
+}
+
+.controledSelect{
+  margin-top: 0.25rem;  
+
+
+}
+
+.img {
+  max-width:70%;
+  height:auto;
+}
+#postDetailsImage{
+  max-width:100%;
+  height:auto;
+}
+#topright{
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 18px;
+}
