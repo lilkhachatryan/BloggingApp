@@ -41,16 +41,19 @@ function App(props) {
             isAuthenticated={isAuthenticated}
             isVerifying={isVerifying}
         />
-          <ProtectedRoute
+        <ProtectedRoute
             path="/post/:id"
             component={PostDetails}
             isAuthenticated={isAuthenticated}
             isVerifying={isVerifying}
         />
+        <ProtectedRoute
+            path="/addpost"
+            component={AddPost}
+        />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/home" component={Home} />
-        <Route exact path="/addpost" component={AddPost} />
         <Route exact path="/posts" component={Posts} />
       </Switch>
     </>

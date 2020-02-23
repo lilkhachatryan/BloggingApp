@@ -6,7 +6,7 @@ const useForm = (callback, validate, defaultState) => {
 
     const handleChange = event => {
         let { name, value } = event.target;
-        if (event.target.files[0]){
+        if (event.target.files && event.target.files[0]){
             value = event.target.files[0];
         }
         setValues({
