@@ -7,7 +7,7 @@ import moment from 'moment';
  
 function PostDetails() {
     const { id } = useParams();
-    const [post, setPost] = useState(null);
+    const [post, setPost] = useState({});
 
     const fetchPost = () => {
         const ref = myFirebase.firestore().collection('posts').doc(id);
@@ -15,6 +15,8 @@ function PostDetails() {
             .then((doc) => {
                     if (doc.exists) {
                         setPost(doc.data());
+                        console.log("doc.data()", doc.data());
+                        console.log("post", post);
                     } else {
                         console.log("No such document!");
                     }
@@ -24,7 +26,6 @@ function PostDetails() {
 
     useEffect(() => {
         fetchPost();
-        console.log("post_44", post);
     }, []);
 
     const DefaultAvatar = () => {
@@ -55,7 +56,7 @@ function PostDetails() {
     };
      return (
         <Jumbotron fluid>
-            {post && <Container  className = "wholePost">
+            {Object.keys(post).length && <Container  className = "wholePost">
                 <h1>{post.title}</h1>
                 <div>{post.user && <Avatar />}</div>
                 <div>
