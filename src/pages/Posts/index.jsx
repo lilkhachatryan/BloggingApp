@@ -4,6 +4,7 @@ import{Card,ListGroup,ListGroupItem ,Row,Col,Table,Form,FormControl,Button} from
 import ReadMoreReact from 'read-more-react';
 import {Link} from "react-router-dom";
 import {storage} from "../../../src/config/firebase";
+import Pagination from "../../components/common/Pagination";
 
 
 // import {useActions} from'./actions';
@@ -11,6 +12,8 @@ import {myFirebase} from '../../config/firebase';
 
 function Posts(props) {
     const [posts, setPosts] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage,setPostsPerPage] = useState(2);
     const { user,history } = props;
     console.log("user.id", user.id);
     const fetchPosts = () => {
@@ -44,11 +47,17 @@ function Posts(props) {
     useEffect(() => {
         fetchPosts();
     }, []);
+
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost-postsPerPage;
+    const currentPosts = posts.slice(indexOfFirstPost,indexOfLastPost);
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
     
     return (
     <>
         {
-        posts.map(p =>
+        currentPosts.map(p =>
             <div key={p.id}>
             <Card style={{ width: '50rem' }} className = "mx-auto" >
                 <Card.Body>
@@ -69,6 +78,14 @@ function Posts(props) {
             </Card>                
             </div>
         )}
+        <div>
+            <Pagination 
+            postsPerPage = {postsPerPage} 
+            totalPosts = {posts.length}
+            paginate={paginate}
+            
+            />
+        </div>
     </>
     )
 }
