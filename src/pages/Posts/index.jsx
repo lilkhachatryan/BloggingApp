@@ -15,7 +15,7 @@ function Posts(props) {
     const deletePost = async (id) => {
         try {
             await myFirebase.firestore().collection("posts").doc(id).delete();
-            window.location.reload()
+            await fetchPosts();
         } catch (e) {
             console.log('err', e);
         }
