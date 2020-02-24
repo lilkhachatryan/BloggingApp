@@ -1,72 +1,45 @@
-import React, {useState, useEffect} from 'react';
-import {connect} from "react-redux";
-import{Card,ListGroup,ListGroupItem ,Row,Col,Table,Form,FormControl,Button} from "react-bootstrap";
-import ReadMoreReact from 'read-more-react';
-import {Link} from "react-router-dom";
-import {storage} from "../../../src/config/firebase";
-
-
-// import {useActions} from'./actions';
-import {myFirebase} from '../../config/firebase';
+import React from 'react';
+import { connect } from "react-redux";
+import { Card, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { myFirebase } from '../../config/firebase';
+import { usePostsFetch } from './hooks';
 
 function Posts(props) {
-    const [posts, setPosts] = useState([]);
-    const { user,history } = props;
-    console.log("user.id", user.id);
-    const fetchPosts = () => {
-        const userRef = myFirebase.firestore()
-            .collection('users')
-            .doc(user.id);
+    const { user, history } = props;
+    const [{ state, loading, error }, fetchPosts] = usePostsFetch({ user_id: user.id });
 
-        const ref = myFirebase.firestore().collection('posts')
-            .where("user_id", "==", userRef)
-            // .orderBy("created_at");
+    if (error) return (<div>Something went wrong.</div>);
+    if (!state.posts[0]) return (<div>Spinner component</div>);
 
-        ref.get()
-            .then((asd) => {
-                let res = [];
-                 asd.docs.map(doc => {
-                    if (doc.exists) {
-                        //debugger;                      
-                        res.push({...doc.data(), id: doc.id});                        
-                        
-                    } else {
-                        console.log("No such document!");
-                    }
-                });
-                console.log("get postsss", res);
-                setPosts(res);
-                
-            })
-            .catch((err) => console.log("err -->", err))
+    const deletePost = async (id) => {
+        try {
+            await myFirebase.firestore().collection("posts").doc(id).delete();
+            window.location.reload()
+        } catch (e) {
+            console.log('err', e);
+        }
     };
 
-    useEffect(() => {
-        fetchPosts();
-    }, []);
-    
     return (
     <>
-        {
-        posts.map(p =>
+        {state.posts.map(p =>
             <div key={p.id}>
-            <Card style={{ width: '50rem' }} className = "mx-auto" >
-                <Card.Body>
-                    <Card.Title>{p.title}</Card.Title>
-                    <Card.Img variant="top" src={p.image} alt = "nkar" className="img"/>
-                    <Card.Text>
-                    {p.content}
-                    <Link to={"/post/" + p.id}>read more...</Link>                       
-                    </Card.Text>
-                </Card.Body>
-                <Button
-                id = "topright"
-                variant="outline-primary"
-                size="sm"
-                onClick = {() => {
-                    myFirebase.firestore().collection("posts").doc(p.id).delete();
-                    window.location.reload()}}>X</Button>
-            </Card>                
+                <Card style={{ width: '50rem' }} className = "mx-auto mt-4 mb-4" >
+                    <Card.Body>
+                        <Card.Title>{p.title}</Card.Title>
+                        <Card.Img variant="top" src={p.image} alt = "nkar" className="img"/>
+                        <Card.Text>
+                        {p.content}
+                        <Link to={"/post/" + p.id}>read more...</Link>
+                        </Card.Text>
+                    </Card.Body>
+                    <Button
+                        id="topright"
+                        variant="outline-primary"
+                        size="sm"
+                        onClick = {() => {deletePost(p.id)}}>X</Button>
+                </Card>
             </div>
         )}
     </>
@@ -77,9 +50,5 @@ function mapStateToProps(state) {
         user: state.login.user
     }
 }
-
-// const actionCreators = {
-//
-// };
 
 export default connect(mapStateToProps)(Posts) ;

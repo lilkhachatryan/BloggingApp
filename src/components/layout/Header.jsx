@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Navbar, Nav, NavDropdown, Form, Button, FormControl} from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 import SignedInLinks from './SignedInLinks.jsx';
 import SignedOutLinks from './SignOutLinks.jsx';
 
 const Header = (props) => {
     const {isAuthenticated, user} = props;
     const isUser = !!Object.keys(user).length;
+
     return (
         <Navbar bg="light" expand="md">
             <Navbar.Brand href="/"> Blogging</Navbar.Brand>
@@ -17,6 +17,6 @@ const Header = (props) => {
             </Navbar.Collapse>
         </Navbar>
     )
-}
+};
 
 export default Header;
