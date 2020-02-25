@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState }from 'react';
 import { connect } from "react-redux";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { myFirebase } from '../../config/firebase';
 import { usePostsFetch } from './hooks';
+import Pagination from "../../components/common/Pagination";
 
 function Posts(props) {
     const { user, history } = props;
     const [{ state, loading, error }, fetchPosts] = usePostsFetch({ user_id: user.id });
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage,setPostsPerPage] = useState(3);
 
     if (error) return (<div>Something went wrong.</div>);
     if (!state.posts[0]) return (<div>Spinner component</div>);
@@ -21,9 +24,14 @@ function Posts(props) {
         }
     };
 
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost-postsPerPage;
+    const currentPosts = state.posts.slice(indexOfFirstPost,indexOfLastPost);
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     return (
     <>
-        {state.posts.map(p =>
+        {currentPosts.map(p =>
             <div key={p.id}>
                 <Card style={{ width: '50rem' }} className = "mx-auto mt-4 mb-4" >
                     <Card.Body>
@@ -45,7 +53,7 @@ function Posts(props) {
         <div>
             <Pagination 
             postsPerPage = {postsPerPage} 
-            totalPosts = {posts.length}
+            totalPosts = {state.posts.length}
             paginate={paginate}
             
             />
