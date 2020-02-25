@@ -42,6 +42,14 @@ function Posts(props) {
                 </Card>
             </div>
         )}
+        <div>
+            <Pagination 
+            postsPerPage = {postsPerPage} 
+            totalPosts = {posts.length}
+            paginate={paginate}
+            
+            />
+        </div>
     </>
     )
 }
