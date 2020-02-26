@@ -1,10 +1,13 @@
 import React, { useState }from 'react';
 import { connect } from "react-redux";
-import { Card, Button } from "react-bootstrap";
+import {Card, Button, Form} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { myFirebase } from '../../config/firebase';
 import { usePostsFetch } from './hooks';
 import Pagination from "../../components/common/Pagination";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner, faBookmark as fasBookmark, faArchive as fasArchive } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as farBookmark, faTrashAlt as farTrashAlt} from '@fortawesome/free-regular-svg-icons';
 
 function Posts(props) {
     const { user, history } = props;
@@ -13,7 +16,7 @@ function Posts(props) {
     const [postsPerPage,setPostsPerPage] = useState(3);
 
     if (error) return (<div>Something went wrong.</div>);
-    if (!state.posts[0]) return (<div>Spinner component</div>);
+    if (!state.posts[0]) return (<div><FontAwesomeIcon icon={faSpinner} size="4x" pulse/></div>);
 
     const deletePost = async (id) => {
         try {
@@ -35,6 +38,10 @@ function Posts(props) {
             <div key={p.id}>
                 <Card style={{ width: '50rem' }} className = "mx-auto mt-4 mb-4" >
                     <Card.Body>
+                        <FontAwesomeIcon icon={fasBookmark } />
+                        <FontAwesomeIcon icon={ farBookmark } />
+                        {/*<FontAwesomeIcon icon={ fasArchive } color="grey"/>*/}
+                        {/*<FontAwesomeIcon icon={ farTrashAlt } color="grey"/>*/}
                         <Card.Title>{p.title}</Card.Title>
                         <Card.Img variant="top" src={p.image} alt = "nkar" className="img"/>
                         <Card.Text>
