@@ -13,7 +13,7 @@ function Posts(props) {
     const { user, history } = props;
     const [{ state, loading, error }, fetchPosts] = usePostsFetch({ user_id: user.id });
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage,setPostsPerPage] = useState(3);
+    const [postsPerPage,setPostsPerPage] = useState(2);
 
     if (error) return (<div>Something went wrong.</div>);
     if (!state.posts[0]) return (<div><FontAwesomeIcon icon={faSpinner} size="4x" pulse/></div>);
