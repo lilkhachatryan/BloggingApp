@@ -81,7 +81,6 @@ function AddPost(props) {
                         <option value="1">Travel</option>
                         <option value="2">IT</option>
                         <option value="3">Finance</option>
-
                         </select>   
                 
                     <div>

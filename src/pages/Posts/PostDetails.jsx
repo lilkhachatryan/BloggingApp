@@ -4,7 +4,8 @@ import { myFirebase } from '../../config/firebase';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import { Container, Image } from "react-bootstrap";
 import moment from 'moment';
- 
+
+
 function PostDetails() {
     const { id } = useParams();
     const [post, setPost] = useState({});
