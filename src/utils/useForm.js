@@ -6,13 +6,16 @@ const useForm = (callback, validate, defaultState) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = event => {
+        
         let { name, value } = event.target;
         if (event.target.files && event.target.files[0]){
             value = event.target.files[0];
         }
+
         setValues({
             ...values,
-            [name]: value}
+            [name]: value,
+        }
         );
         if (name === 'repeatPassword') {
             setErrors(validate({[name]: value, password: values.password}));

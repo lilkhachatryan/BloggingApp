@@ -36,7 +36,7 @@ function Posts(props) {
     <>
         {currentPosts.map(p =>
             <div key={p.id}>
-                <Card style={{ width: '50rem' }} className = "mx-auto mt-4 mb-4" >
+                <Card  className = "mx-auto mt-4 mb-4" >
                     <Card.Body>
                         {/* <FontAwesomeIcon icon={fasBookmark } />
                         <FontAwesomeIcon icon={ farBookmark } /> */}
