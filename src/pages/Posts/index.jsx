@@ -15,9 +15,6 @@ function Posts(props) {
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage,setPostsPerPage] = useState(2);
 
-    if (error) return (<div>Something went wrong.</div>);
-     if (!state.posts[0]) return (<div><FontAwesomeIcon icon={faSpinner} size="4x" pulse/></div>);
-
     const deletePost = async (id) => {
         try {
             await myFirebase.firestore().collection("posts").doc(id).delete();
@@ -28,44 +25,46 @@ function Posts(props) {
     };
 
     const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost-postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = state.posts.slice(indexOfFirstPost,indexOfLastPost);
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    if (error) return (<div>Something went wrong.</div>);
+    if (loading) return (<div><FontAwesomeIcon icon={faSpinner} size="4x" pulse/></div>);
+
     return (
-    <>
-        {currentPosts.map(p =>
-            <div key={p.id}>
-                <Card  className = "mx-auto mt-4 mb-4" >
-                    <Card.Body>
-                        {/* <FontAwesomeIcon icon={fasBookmark } />
-                        <FontAwesomeIcon icon={ farBookmark } /> */}
-                        {/*<FontAwesomeIcon icon={ fasArchive } color="grey"/>*/}
-                        {/*<FontAwesomeIcon icon={ farTrashAlt } color="grey"/>*/}
-                        <Card.Title>{p.title}</Card.Title>
-                        <Card.Img variant="top" src={p.image} alt = "nkar" className="img"/>
-                        <Card.Text>
-                        {p.content}
-                        <Link to={"/post/" + p.id}>read more...</Link>
-                        </Card.Text>
-                    </Card.Body>
-                    <Button
-                        id="topright"
-                        variant="outline-primary"
-                        size="sm"
-                        onClick = {() => {deletePost(p.id)}}>X</Button>
-                </Card>
+        <>
+            {currentPosts.map(p =>
+                <div key={p.id}>
+                    <Card  className = "mx-auto mt-4 mb-4" >
+                        <Card.Body>
+                            {/* <FontAwesomeIcon icon={fasBookmark } />
+                            <FontAwesomeIcon icon={ farBookmark } /> */}
+                            {/*<FontAwesomeIcon icon={ fasArchive } color="grey"/>*/}
+                            {/*<FontAwesomeIcon icon={ farTrashAlt } color="grey"/>*/}
+                            <Card.Title>{p.title}</Card.Title>
+                            <Card.Img variant="top" src={p.image} alt = "nkar" className="img"/>
+                            <Card.Text>
+                            {p.content}
+                            <Link to={"/post/" + p.id}>read more...</Link>
+                            </Card.Text>
+                        </Card.Body>
+                        <Button
+                            id="topright"
+                            variant="outline-primary"
+                            size="sm"
+                            onClick = {() => {deletePost(p.id)}}>X</Button>
+                    </Card>
+                </div>
+            )}
+            <div>
+                <Pagination
+                    postsPerPage = {postsPerPage}
+                    totalPosts = {state.posts.length}
+                    currentPage={currentPage}
+                    paginate={paginate} />
             </div>
-        )}
-        <div>
-            <Pagination 
-            postsPerPage = {postsPerPage} 
-            totalPosts = {state.posts.length}
-            paginate={paginate}
-            
-            />
-        </div>
-    </>
+        </>
     )
 }
 function mapStateToProps(state) {
