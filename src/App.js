@@ -15,10 +15,12 @@ import './assets/styles/main.scss';
 import Header from './components/layout/Header';
 import PostList from './pages/Posts';
 import Home from "./pages/Home";
+import Footer from "./pages/Footer";
 import Register from "./pages/Auth/Register";
 import AddPost from "./pages/Posts/AddPost";
 import Posts from "./pages/Posts";
 import PostDetails from "./pages/Posts/PostDetails";
+
 
 function App(props) {
   const { isAuthenticated, isVerifying, user } = props;
@@ -27,6 +29,7 @@ function App(props) {
       <Header 
         isAuthenticated={isAuthenticated}
         user={user}/>
+        <Footer/>
       <Switch>
         <ProtectedRoute
           exact

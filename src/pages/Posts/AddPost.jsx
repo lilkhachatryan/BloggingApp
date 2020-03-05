@@ -15,7 +15,7 @@ function AddPost(props) {
 
     // const [imgAsFile, setImgAsFile] = useState(new File([], ''));
     // const [imgAsUrl, setImgAsUrl] = useState({imgUrl:""});
-    const defaultState = {title:"", about: "", imgAsFile: new File([], '')};
+    const defaultState = {title:"", about: "", imgAsFile: new File([], ''),topic:""};
     const { values, errors, handleChange, handleSubmit } = useForm(submit, validatePost, defaultState);
 
     const { dispatch, history } = props;
@@ -23,7 +23,7 @@ function AddPost(props) {
 
     async function submit() {
         // await poster({title: values.title, about: values.about, imgAsFile});
-        dispatch(poster({title: values.title, about: values.about, user_id: user.id,created_at: values.created_at, imgAsFile: values.imgAsFile}))
+        dispatch(poster({title: values.title, about: values.about, user_id: user.id,created_at: values.created_at, imgAsFile: values.imgAsFile, topic: values.topic}))
             .then(() => {
                 console.log("endd");
                 history.push('/posts');
@@ -76,12 +76,11 @@ function AddPost(props) {
                         </Form.Group>
                     </Form.Row>
                         <h6>Тopic</h6>        
-                        <select className="controledSelect" id="categories">
+                        <select className="controledSelect" id="categories" onChange = {handleChange} name = "topic">
                         <option selected>Choose...</option>
-                        <option value="1">Travel</option>
-                        <option value="2">IT</option>
-                        <option value="3">Finance</option>
-
+                        <option value="Travel">Travel</option>
+                        <option value="IT">IT</option>
+                        <option value="Finance">Finance</option>
                         </select>   
                 
                     <div>

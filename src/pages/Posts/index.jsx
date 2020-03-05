@@ -6,8 +6,8 @@ import { myFirebase } from '../../config/firebase';
 import { usePostsFetch } from './hooks';
 import Pagination from "../../components/common/Pagination";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner, faBookmark as fasBookmark, faArchive as fasArchive } from '@fortawesome/free-solid-svg-icons';
-import { faBookmark as farBookmark, faTrashAlt as farTrashAlt} from '@fortawesome/free-regular-svg-icons';
+ import { faSpinner, faBookmark as fasBookmark, faArchive as fasArchive } from '@fortawesome/free-solid-svg-icons';
+ import { faBookmark as farBookmark, faTrashAlt as farTrashAlt} from '@fortawesome/free-regular-svg-icons';
 
 function Posts(props) {
     const { user, history } = props;
@@ -16,7 +16,7 @@ function Posts(props) {
     const [postsPerPage,setPostsPerPage] = useState(2);
 
     if (error) return (<div>Something went wrong.</div>);
-    if (!state.posts[0]) return (<div><FontAwesomeIcon icon={faSpinner} size="4x" pulse/></div>);
+     if (!state.posts[0]) return (<div><FontAwesomeIcon icon={faSpinner} size="4x" pulse/></div>);
 
     const deletePost = async (id) => {
         try {
@@ -36,10 +36,10 @@ function Posts(props) {
     <>
         {currentPosts.map(p =>
             <div key={p.id}>
-                <Card style={{ width: '50rem' }} className = "mx-auto mt-4 mb-4" >
+                <Card  className = "mx-auto mt-4 mb-4" >
                     <Card.Body>
-                        <FontAwesomeIcon icon={fasBookmark } />
-                        <FontAwesomeIcon icon={ farBookmark } />
+                        {/* <FontAwesomeIcon icon={fasBookmark } />
+                        <FontAwesomeIcon icon={ farBookmark } /> */}
                         {/*<FontAwesomeIcon icon={ fasArchive } color="grey"/>*/}
                         {/*<FontAwesomeIcon icon={ farTrashAlt } color="grey"/>*/}
                         <Card.Title>{p.title}</Card.Title>
