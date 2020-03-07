@@ -13,15 +13,12 @@ import Profile from './pages/Profile';
 import ProtectedRoute from './ProtectedRoute';
 import './assets/styles/main.scss';
 import Header from './components/layout/Header';
-import Footer from "./components/layout/Footer"
-import PostList from './pages/Posts';
 import Home from "./pages/Home";
 import Footer from "./pages/Footer";
 import Register from "./pages/Auth/Register";
 import AddPost from "./pages/Posts/AddPost";
 import Posts from "./pages/Posts";
-import PostDetails from "./pages/Posts/PostDetails"
-// import EditProfile from './pages/EditProfile';
+import PostDetails from "./pages/Posts/PostDetails";
 
 
 function App(props) {
@@ -40,12 +37,7 @@ function App(props) {
           isAuthenticated={isAuthenticated}
           isVerifying={isVerifying}
         />
-        <ProtectedRoute
-            path="/posts"
-            component={PostList}
-            isAuthenticated={isAuthenticated}
-            isVerifying={isVerifying}
-        />
+
         <ProtectedRoute
             path="/post/:id"
             component={PostDetails}

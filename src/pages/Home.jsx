@@ -1,7 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import IT from "../assets/images/1.jpg";
-import Finance from "../assets/images/2.jpg";
+import   Finance from "../assets/images/2.jpg";
 import Travel from "../assets/images/3.jpg";
 import {Card, Button, Form} from "react-bootstrap";
 import Posts from "../../src/pages/Posts/index"
@@ -9,14 +9,10 @@ import Posts from "../../src/pages/Posts/index"
 
 const Home = (props) => {
   const { history } = props;
-
-   const handleOnClick = () =>{
-    console.log("clicked");
+  const handleOnClick = (e) =>{
+      console.log("clicked", e.target.alt);
   }
-  //  const [{ state, error}, fetchPosts] = usePostsFetch({ topic:topic });
-  //  if (error) return (<div>Something went wrong.</div>);
-  //    if (!state.posts[0]) return (<div><FontAwesomeIcon icon={faSpinner} size="4x" pulse/></div>);
-   
+ 
     return (
       <>
       <div className="container">
@@ -51,7 +47,7 @@ const Home = (props) => {
         </a>
 
       </div>
-      <Posts/>
+       <Posts /> 
 
     
       

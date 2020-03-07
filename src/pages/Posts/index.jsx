@@ -36,6 +36,9 @@ function Posts(props) {
     const currentPosts = state.posts.slice(indexOfFirstPost,indexOfLastPost);
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    if (error) return (<div>Something went wrong.</div>);
+    if (loading) return (<div><FontAwesomeIcon icon={faSpinner} size="4x" pulse/></div>);
+
     return (
     <>
         {currentPosts.map(p =>
@@ -62,11 +65,11 @@ function Posts(props) {
             </div>
         )}
         <div>
-            <Pagination 
-            postsPerPage = {postsPerPage} 
+            <Pagination
+            postsPerPage = {postsPerPage}
             totalPosts = {state.posts.length}
             paginate={paginate}
-            
+
             />
         </div>
     </>
