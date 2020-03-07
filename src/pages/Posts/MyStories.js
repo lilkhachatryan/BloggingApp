@@ -62,6 +62,7 @@ function MyStories() {
 
         <Pagination 
             postsPerPage = {postsPerPage} 
+            currentPage={currentPage}
             totalPosts = {posts.length}
             paginate={paginate}
         />

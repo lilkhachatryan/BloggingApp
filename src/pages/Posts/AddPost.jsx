@@ -26,7 +26,7 @@ function AddPost(props) {
         dispatch(poster({title: values.title, about: values.about, user_id: user.id,created_at: values.created_at, imgAsFile: values.imgAsFile, topic: values.topic}))
             .then(() => {
                 console.log("endd");
-                history.push('/posts');
+                history.push('/posts/1');
             });
     }
 

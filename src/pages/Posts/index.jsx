@@ -1,4 +1,5 @@
 import React, { useState }from 'react';
+import { useParams } from 'react-router-dom';
 import { connect } from "react-redux";
 import {Card, Button, Form} from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -11,9 +12,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Posts(props) {
     const { user, history } = props;
+    const { page } = useParams();
     const [{ state, loading, error }, fetchPosts] = usePostsFetch({ user_id: user.id });
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage,setPostsPerPage] = useState(3);
+    const [currentPage, setCurrentPage] = useState(Number(page));
+    const [postsPerPage,setPostsPerPage] = useState(2);
 
     if (error) return (<div>Something went wrong.</div>);
     if (loading) return (<div>Spinner component</div>);
@@ -68,6 +70,7 @@ function Posts(props) {
             <Pagination
             postsPerPage = {postsPerPage}
             totalPosts = {state.posts.length}
+            currentPage={currentPage}
             paginate={paginate}
 
             />

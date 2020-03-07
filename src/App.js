@@ -52,7 +52,7 @@ function App(props) {
         <Route path="/register" component={Register} />
         <Route path="/home" component={Home} />
         <Route path="/addpost" component={AddPost} />
-        <Route exact path="/posts" component={Posts} />
+        <Route path="/posts/:page" component={Posts} />
         {/* <Route exact path="/editprofile" component={EditProfile} /> */}
       </Switch>
     </>
