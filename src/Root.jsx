@@ -5,6 +5,7 @@ import './assets/styles/main.scss';
 import App from "./App";
 import store from './store/index';
 
+
 function Root() {
   return (
     <Provider store={store}>

@@ -2,7 +2,7 @@ import React, { useState }from 'react';
 import { connect } from "react-redux";
 import {Card, Button, Form} from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { myFirebase } from '../../config/firebase';
+import { myFirebase, storage } from '../../config/firebase';
 import { usePostsFetch } from './hooks';
 import Pagination from "../../components/common/Pagination";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,11 +16,15 @@ function Posts(props) {
     const [postsPerPage,setPostsPerPage] = useState(3);
 
     if (error) return (<div>Something went wrong.</div>);
-     if (!state.posts[0]) return (<div><FontAwesomeIcon icon={faSpinner} size="4x" pulse/></div>);
+    if (loading) return (<div>Spinner component</div>);
 
-    const deletePost = async (id) => {
+    const deletePost = async (post) => {
         try {
-            await myFirebase.firestore().collection("posts").doc(id).delete();
+            await myFirebase.firestore().collection("posts").doc(post.id).delete();
+            let imgName = post.image.match(/\.*%2F(.*)\?alt/);
+            imgName = imgName && imgName[1].replace(/%20/g, " ");
+            const deleteRef = storage.ref('images').child(imgName);
+            await deleteRef.delete();
             await fetchPosts();
         } catch (e) {
             console.log('err', e);
@@ -53,7 +57,7 @@ function Posts(props) {
                         id="topright"
                         variant="outline-primary"
                         size="sm"
-                        onClick = {() => {deletePost(p.id)}}>X</Button>
+                        onClick = {() => {deletePost(p)}}>X</Button>
                 </Card>
             </div>
         )}

@@ -9,7 +9,7 @@ const Header = (props) => {
 
     return (
         <Navbar bg="light" expand="md">
-            <Navbar.Brand href="/"> Blogging</Navbar.Brand>
+            <Navbar.Brand href="/"> <h3>Blogging</h3></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />            
             <Navbar.Collapse id="basic-navbar-nav">
                 {isAuthenticated && isUser && <SignedInLinks user={user}/>}
