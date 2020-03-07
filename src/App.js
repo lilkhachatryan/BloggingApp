@@ -38,12 +38,7 @@ function App(props) {
           isAuthenticated={isAuthenticated}
           isVerifying={isVerifying}
         />
-        <ProtectedRoute
-            path="/posts"
-            component={PostList}
-            isAuthenticated={isAuthenticated}
-            isVerifying={isVerifying}
-        />
+        
         <ProtectedRoute
             path="/post/:id"
             component={PostDetails}
@@ -59,6 +54,8 @@ function App(props) {
         <Route path="/home" component={Home} />
         <Route path="/addpost" component={AddPost} />
         <Route exact path="/posts" component={Posts} />
+        
+        
       </Switch>
     </>
   );
@@ -68,7 +65,8 @@ const mapStateToProps = state => {
   return {
     isAuthenticated: state.login.isAuthenticated,
     isVerifying: state.login.isVerifying,
-    user: state.login.user
+    user: state.login.user,
+    
   }
 };
 

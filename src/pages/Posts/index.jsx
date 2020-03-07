@@ -6,8 +6,9 @@ import { myFirebase } from '../../config/firebase';
 import { usePostsFetch } from './hooks';
 import Pagination from "../../components/common/Pagination";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
- import { faSpinner, faBookmark as fasBookmark, faArchive as fasArchive } from '@fortawesome/free-solid-svg-icons';
- import { faBookmark as farBookmark, faTrashAlt as farTrashAlt} from '@fortawesome/free-regular-svg-icons';
+import { faSpinner, faBookmark as fasBookmark, faArchive as fasArchive } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as farBookmark, faTrashAlt as farTrashAlt} from '@fortawesome/free-regular-svg-icons';
+ 
 
 function Posts(props) {
     const { user, history } = props;
@@ -23,6 +24,9 @@ function Posts(props) {
             console.log('err', e);
         }
     };
+    
+
+    
 
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -31,6 +35,8 @@ function Posts(props) {
 
     if (error) return (<div>Something went wrong.</div>);
     if (loading) return (<div><FontAwesomeIcon icon={faSpinner} size="4x" pulse/></div>);
+    
+    
 
     return (
         <>
