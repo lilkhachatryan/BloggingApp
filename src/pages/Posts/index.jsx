@@ -8,6 +8,7 @@ import Pagination from "../../components/common/Pagination";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
  import { faSpinner, faBookmark as fasBookmark, faArchive as fasArchive } from '@fortawesome/free-solid-svg-icons';
  import { faBookmark as farBookmark, faTrashAlt as farTrashAlt} from '@fortawesome/free-regular-svg-icons';
+ import AllPosts from '../../components/AllPosts'
 
 function Posts(props) {
     const { user, history } = props;
@@ -38,17 +39,14 @@ function Posts(props) {
 
     if (error) return (<div>Something went wrong.</div>);
     if (loading) return (<div><FontAwesomeIcon icon={faSpinner} size="4x" pulse/></div>);
-
     return (
     <>
-        {currentPosts.map(p =>
+        <AllPosts posts={currentPosts} isDelete={true} deletePost={deletePost} />
+
+        {/* {currentPosts.map(p =>
             <div key={p.id}>
                 <Card  className = "mx-auto mt-4 mb-4" >
                     <Card.Body>
-                        {/* <FontAwesomeIcon icon={fasBookmark } />
-                        <FontAwesomeIcon icon={ farBookmark } /> */}
-                        {/*<FontAwesomeIcon icon={ fasArchive } color="grey"/>*/}
-                        {/*<FontAwesomeIcon icon={ farTrashAlt } color="grey"/>*/}
                         <Card.Title>{p.title}</Card.Title>
                         <Card.Img variant="top" src={p.image} alt = "nkar" className="img"/>
                         <Card.Text>
@@ -63,9 +61,11 @@ function Posts(props) {
                         onClick = {() => {deletePost(p)}}>X</Button>
                 </Card>
             </div>
-        )}
+        )} */}
+
         <div>
             <Pagination
+            currentPage ={currentPage}
             postsPerPage = {postsPerPage}
             totalPosts = {state.posts.length}
             paginate={paginate}

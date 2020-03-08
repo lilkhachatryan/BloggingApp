@@ -2,11 +2,11 @@ import React, {useState, useEffect} from 'react';
 import { postsRef, userRef, getPostsRef } from "../../utils/endpoints";
 
 const usePostsFetch = (params) => {
-    const [state, setState] = useState({posts: [], currentPage:0 , topic: ""});
+    const [state, setState] = useState({posts: [], currentPage:0 });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
-    const fetchPosts = async (offset = 2) => {
+    const fetchPosts = async ({topic}) => {
         setLoading(true);
         setError(false);
         try {
@@ -14,8 +14,9 @@ const usePostsFetch = (params) => {
             if (params.user_id) {
                 endpoint = postsRef().where("user_id", "==", userRef(params.user_id));
             }
-            if (params.topic){
-                endpoint = postsRef().where("topic", "==", params.gago)
+            
+            if (topic){
+                endpoint = postsRef().where("topic", "==", topic)
             }
 
             const res = await endpoint.get();
@@ -42,7 +43,7 @@ const usePostsFetch = (params) => {
     };
 
     useEffect(() => {
-        fetchPosts();
+        fetchPosts({});
     }, []);
 
     return [{state, loading, error}, fetchPosts];
