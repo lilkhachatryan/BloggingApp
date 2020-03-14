@@ -12,7 +12,7 @@ const usePostsFetch = (params) => {
         try {
             let endpoint = postsRef();
             if (params.user_id) {
-                endpoint = postsRef().where("user_id", "==", userRef(params.user_id));
+                endpoint = postsRef().where("user", "==", userRef(params.user_id));
             }
             if (params.topic){
                 endpoint = postsRef().where("topic", "==", params.gago)
@@ -28,6 +28,7 @@ const usePostsFetch = (params) => {
                     console.log("No such document!");
                 }
             });
+            console.log('posts', posts);
             setState(prev => ({
                 ...prev,
                 posts,
