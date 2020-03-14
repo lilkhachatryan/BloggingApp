@@ -25,7 +25,7 @@ function App(props) {
   const { isAuthenticated, isVerifying, user } = props;
   return (
     <>
-      <Header 
+      <Header
         isAuthenticated={isAuthenticated}
         user={user}/>
         <Footer/>
@@ -44,10 +44,18 @@ function App(props) {
             isAuthenticated={isAuthenticated}
             isVerifying={isVerifying}
         />
-        {/* <ProtectedRoute
+        <ProtectedRoute
             path="/addpost"
             component={AddPost}
-        /> */}
+            isAuthenticated={isAuthenticated}
+            isVerifying={isVerifying}
+        />
+        <ProtectedRoute
+            path="/posts"
+            component={Posts}
+            isAuthenticated={isAuthenticated}
+            isVerifying={isVerifying}
+        />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/home" component={Home} />
