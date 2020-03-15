@@ -1,6 +1,6 @@
-
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import Loading from "./components/common/Loading";
 
 const ProtectedRoute = ({
     component: Component,
@@ -12,7 +12,7 @@ const ProtectedRoute = ({
       {...rest}
       render = { props =>
         isVerifying ? (
-          <div style={{marginTop: 50}}>Request not verified yet, some loading.</div>
+          <Loading />
         ) : isAuthenticated ? (
           <Component {...props} />
         ) : (

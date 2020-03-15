@@ -4,7 +4,7 @@ import "firebase/firestore";
 import "firebase/storage";
 import 'firebase/database'
 
-export const firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyA50eJOu7Tf0H2OUdJH25rFmVbi1C1zWBs",
     authDomain: "blogging-app-435bb.firebaseapp.com",
     databaseURL: "https://blogging-app-435bb.firebaseio.com",
@@ -16,5 +16,8 @@ export const firebaseConfig = {
   };
 
 export const myFirebase = firebase.initializeApp(firebaseConfig);
-export const storage = firebase.storage();
 export default firebase;
+
+export const firebaseDb = myFirebase.firestore();
+export const storage = firebase.storage();
+export const auth = myFirebase.auth();

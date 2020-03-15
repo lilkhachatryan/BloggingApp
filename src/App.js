@@ -13,12 +13,13 @@ import Profile from './pages/Profile';
 import ProtectedRoute from './ProtectedRoute';
 import './assets/styles/main.scss';
 import Header from './components/layout/Header';
-import PostList from './pages/Posts';
 import Home from "./pages/Home";
+import Footer from "./pages/Footer";
 import Register from "./pages/Auth/Register";
 import AddPost from "./pages/Posts/AddPost";
 import Posts from "./pages/Posts";
 import PostDetails from "./pages/Posts/PostDetails";
+
 
 function App(props) {
   const { isAuthenticated, isVerifying, user } = props;
@@ -27,6 +28,7 @@ function App(props) {
       <Header 
         isAuthenticated={isAuthenticated}
         user={user}/>
+        <Footer/>
       <Switch>
         <ProtectedRoute
           exact
@@ -35,27 +37,30 @@ function App(props) {
           isAuthenticated={isAuthenticated}
           isVerifying={isVerifying}
         />
-        <ProtectedRoute
-            path="/posts"
-            component={PostList}
-            isAuthenticated={isAuthenticated}
-            isVerifying={isVerifying}
-        />
+
         <ProtectedRoute
             path="/post/:id"
             component={PostDetails}
             isAuthenticated={isAuthenticated}
             isVerifying={isVerifying}
         />
-        {/* <ProtectedRoute
+        <ProtectedRoute
             path="/addpost"
             component={AddPost}
-        /> */}
+            isAuthenticated={isAuthenticated}
+            isVerifying={isVerifying}
+        />
+        <ProtectedRoute
+            path="/posts"
+            component={Posts}
+            isAuthenticated={isAuthenticated}
+            isVerifying={isVerifying}
+        />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/home" component={Home} />
         <Route path="/addpost" component={AddPost} />
-        <Route exact path="/posts" component={Posts} />
+        {/* <Route exact path="/editprofile" component={EditProfile} /> */}
       </Switch>
     </>
   );

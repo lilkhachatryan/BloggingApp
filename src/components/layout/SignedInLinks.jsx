@@ -4,7 +4,7 @@ import { Nav, NavDropdown, Form, Button, FormControl, Image } from 'react-bootst
 //import { LinkContainer } from 'react-router-bootstrap';
 import Avatar from '../../assets/images/user.png';
 import Logout from "../../pages/Auth/Logout";
-// import { connect } from "react-redux";
+import DefaultAvatar from "../common/DefaultAvatar";
 
 
 const SignedInLinks = (props) => {
@@ -21,20 +21,10 @@ const SignedInLinks = (props) => {
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                 <Button variant="outline-success">Search</Button>
             </Form>
-            <Logout />
 
             <NavDropdown title={
                     user.avatar ? <Image src={Avatar} roundedCircle style={{height: 50, width: 50}} className="ml-sm-2"/>
-                    : <div style={{
-                                height: 50,
-                                width: 50,
-                                borderRadius: '50%',
-                                backgroundColor: '#007bff',
-                                textAlign: 'center',
-                                fontSize: 26,
-                                color: '#fff'
-                            }}
-                           className="ml-sm-2">{defaultAvatar}</div>
+                    : <DefaultAvatar avatar={defaultAvatar}/>
                 } id="basic-nav-dropdown">
                 <NavDropdown.Item as={NavLink} to="/addpost">New Story</NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to="/posts">Stories</NavDropdown.Item>
@@ -42,6 +32,7 @@ const SignedInLinks = (props) => {
                 <NavDropdown.Item href="#action/3.4">Reading List</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item as={NavLink} to="/">Profile</NavDropdown.Item>
+                <NavDropdown.Item ><Logout/></NavDropdown.Item>
             </NavDropdown>
         </>
     )

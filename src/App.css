@@ -35,8 +35,6 @@
 
 .controledSelect{
   margin-top: 0.25rem;  
-
-
 }
 
 .img {
@@ -49,7 +47,15 @@
 }
 #topright{
   position: absolute;
-  top: 8px;
+  top: 16px;
   right: 16px;
-  font-size: 18px;
+  font-size: 22px;
+  cursor: pointer;
+}
+#bottom{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    right:50%;
+    left:50%;
 }

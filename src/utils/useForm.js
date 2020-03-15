@@ -1,17 +1,24 @@
 import { useState, useEffect } from 'react';
+
 const useForm = (callback, validate, defaultState) => {
     const [values, setValues] = useState(defaultState);
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = event => {
+        
         let { name, value } = event.target;
+        console.log('value', event.target.files);
         if (event.target.files && event.target.files[0]){
             value = event.target.files[0];
-        }
+        } else if (event.target.files && !event.target.files[0]) return ;
+
+        console.log('v', value);
+
         setValues({
             ...values,
-            [name]: value}
+            [name]: value,
+        }
         );
         if (name === 'repeatPassword') {
             setErrors(validate({[name]: value, password: values.password}));

@@ -3,66 +3,81 @@ import { useParams } from 'react-router-dom';
 import { myFirebase } from '../../config/firebase';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import { Container, Image } from "react-bootstrap";
+import { userRef } from "../../utils/endpoints";
 import moment from 'moment';
- 
+import Loading from "../../components/common/Loading";
+import DefaultAvatar from "../../components/common/DefaultAvatar";
+
 function PostDetails() {
     const { id } = useParams();
     const [post, setPost] = useState(null);
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     const fetchPost = () => {
+        setLoading(true);
         const ref = myFirebase.firestore().collection('posts').doc(id);
+
         ref.get()
             .then((doc) => {
                     if (doc.exists) {
                         setPost(doc.data());
+                        const user_id = doc.data().user.id;
+
+                        userRef(user_id).get().then(doc => {
+                            if (doc.exists) {
+                                setUser({...doc.data(), id: user_id});
+                            }
+                        });
                     } else {
                         console.log("No such document!");
                     }
             })
-            .catch((err) => console.log("err -->", err))
+            .catch((err) => setError(true))
+            .finally(() => setLoading(false));
     };
 
     useEffect(() => {
         fetchPost();
-        console.log("post_44", post);
     }, []);
-
-    const DefaultAvatar = () => {
-        let avatar = post.user_id.firstName.charAt(0) + post.user_id.lastName.charAt(0);
-        avatar = avatar.toUpperCase();
-        return (<div style={{
-                    height: 50,
-                    width: 50,
-                    borderRadius: '50%',
-                    backgroundColor: '#007bff',
-                    textAlign: 'center',
-                    fontSize: 26,
-                    color: '#fff'
-                }}
-                className="ml-sm-2">{avatar}</div>);
-    };
 
     const formatDate = () => {
         return moment(post.created_at.seconds).format('ll');
     };
 
     const Avatar = () => {
-        if (post.user.avatar) {
-            return (<Image src={post.user.image} roundedCircle style={{height: 50, width: 50}} className="ml-sm-2"/>);
+        if (user.avatar) {
+            return (<Image src={user.image} roundedCircle style={{height: 50, width: 50}} className="ml-sm-2"/>);
         } else {
-            return <DefaultAvatar />;
+            let avatar = user.firstName.charAt(0) + user.lastName.charAt(0);
+            avatar = avatar.toUpperCase();
+
+            return <DefaultAvatar avatar={avatar}/>;
         }
     };
+
+    if (error) return (<div>Something went wrong.</div>);
+    if (loading) return (<Loading />);
+
      return (
-        <Jumbotron fluid>
+        <Jumbotron fluid className="pt-3 pb-3" style={{
+            margin: 40,
+            border: '1px solid #a09e9e',
+            boxShadow: '5px 7px #c1bdbd',
+        }}>
             {post && <Container  className = "wholePost">
                 <h1>{post.title}</h1>
-                <div>{post.user && <Avatar />}</div>
+                {user &&
+                    <div className="d-flex align-items-center mb-3 mt-3">
+                        <Avatar />
+                        <p className="ml-2 mr-2 mb-0">{user.firstName} {user.lastName},</p>
+                        <p className="mb-0">{formatDate()}</p>
+                    </div>}
                 <div>
-                    <img src={post.image} alt="post image" id="postDetailsImage"/>
+                    <img src={post.image} alt="post image" id="postDetailsImage" className="mb-3"/>
                 </div>
-                <p> {post.content}</p>
-                <p>{formatDate()}</p>
+                <p>{post.content}</p>
             </Container>}
         </Jumbotron>
      )
