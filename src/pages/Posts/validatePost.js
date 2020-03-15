@@ -13,7 +13,7 @@ export default function validatePost(values) {
         } 
     }
     if (values.hasOwnProperty('imgAsFile')) {
-        if (validator.isEmpty(values.imgAsFile.name)) {
+       if (validator.isEmpty(values.imgAsFile.name || values.imgAsFile)) {
             errors.imgAsFile = 'Image is required';
         }
     }

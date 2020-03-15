@@ -61,13 +61,17 @@ function PostDetails() {
     if (loading) return (<Loading />);
 
      return (
-        <Jumbotron fluid className="pt-3 pb-3">
+        <Jumbotron fluid className="pt-3 pb-3" style={{
+            margin: 40,
+            border: '1px solid #a09e9e',
+            boxShadow: '5px 7px #c1bdbd',
+        }}>
             {post && <Container  className = "wholePost">
                 <h1>{post.title}</h1>
                 {user &&
                     <div className="d-flex align-items-center mb-3 mt-3">
                         <Avatar />
-                        <p className="ml-2 mr-2 mb-0">{user.firstName} {user.lastName}</p>
+                        <p className="ml-2 mr-2 mb-0">{user.firstName} {user.lastName},</p>
                         <p className="mb-0">{formatDate()}</p>
                     </div>}
                 <div>
