@@ -8,9 +8,12 @@ const useForm = (callback, validate, defaultState) => {
     const handleChange = event => {
         
         let { name, value } = event.target;
+        console.log('value', event.target.files);
         if (event.target.files && event.target.files[0]){
             value = event.target.files[0];
-        }
+        } else if (event.target.files && !event.target.files[0]) return ;
+
+        console.log('v', value);
 
         setValues({
             ...values,

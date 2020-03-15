@@ -8,7 +8,7 @@ import Pagination from "../../components/common/Pagination";
 import Loading from "../../components/common/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark as fasBookmark, faArchive as fasArchive } from '@fortawesome/free-solid-svg-icons';
-import { faBookmark as farBookmark, faTrashAlt as farTrashAlt} from '@fortawesome/free-regular-svg-icons';
+import { faBookmark as farBookmark, faTrashAlt as farTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 function Posts(props) {
     const { user, history } = props;
@@ -63,11 +63,10 @@ function Posts(props) {
                         </Card.Text>
                         <Link to={"/post/" + p.id}>Read more</Link>
                     </Card.Body>
-                    {user.id === p.user.id && <Button
-                        id="topright"
-                        variant="outline-primary"
-                        size="sm"
-                        onClick = {() => {deletePost(p)}}>X</Button>}
+                    {user.id === p.user.id && <FontAwesomeIcon
+                                                icon={farTrashAlt}
+                                                id="topright"
+                                                onClick = {() => {deletePost(p)}}/>}
                 </Card>
             </div>
         )}
