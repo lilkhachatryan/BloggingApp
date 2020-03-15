@@ -6,9 +6,8 @@ const useForm = (callback, validate, defaultState) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = event => {
-        
         let { name, value } = event.target;
-        console.log('value', event.target.files);
+
         if (event.target.files && event.target.files[0]){
             value = event.target.files[0];
         } else if (event.target.files && !event.target.files[0]) return ;

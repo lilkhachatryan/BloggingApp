@@ -19,6 +19,7 @@ import Register from "./pages/Auth/Register";
 import AddPost from "./pages/Posts/AddPost";
 import Posts from "./pages/Posts";
 import PostDetails from "./pages/Posts/PostDetails";
+import ReadingList from "./pages/ReadingList";
 
 
 function App(props) {
@@ -53,6 +54,12 @@ function App(props) {
         <ProtectedRoute
             path="/posts"
             component={Posts}
+            isAuthenticated={isAuthenticated}
+            isVerifying={isVerifying}
+        />
+        <ProtectedRoute
+            path="/me/list/:tab"
+            component={ReadingList}
             isAuthenticated={isAuthenticated}
             isVerifying={isVerifying}
         />
