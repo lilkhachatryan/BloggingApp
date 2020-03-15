@@ -78,6 +78,9 @@ function PostDetails() {
                     <img src={post.image} alt="post image" id="postDetailsImage" className="mb-3"/>
                 </div>
                 <p>{post.content}</p>
+                <div className="d-flex">
+                    { post.tags && post.tags.map((tag, index) => <div key={index} className="mr-2">{tag}</div>)}
+                </div>
             </Container>}
         </Jumbotron>
      )

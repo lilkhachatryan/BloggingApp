@@ -45,13 +45,22 @@
   max-width:100%;
   height:auto;
 }
-#topright{
+#delete{
   position: absolute;
   top: 16px;
   right: 16px;
   font-size: 22px;
   cursor: pointer;
 }
+
+.bookmark {
+  position: absolute;
+  top: 16px;
+  right: 42px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
 #bottom{
     position: fixed;
     bottom: 0;

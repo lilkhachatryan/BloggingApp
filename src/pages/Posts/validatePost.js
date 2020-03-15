@@ -12,6 +12,11 @@ export default function validatePost(values) {
             errors.about = 'Content is required';
         } 
     }
+    if (values.hasOwnProperty('tags')) {
+        if (values.tags.length === 0) {
+            errors.tags = 'Need to input minimum one tag';
+        }
+    }
     if (values.hasOwnProperty('imgAsFile')) {
        if (validator.isEmpty(values.imgAsFile.name || values.imgAsFile)) {
             errors.imgAsFile = 'Image is required';

@@ -6,25 +6,35 @@ import { poster } from "./actions";
 import validatePost from "./validatePost";
 import useForm from "../../../src/utils/useForm";
 import { StyledAddPost } from "../../assets/styles/AddPost";
-import IconButton from '@material-ui/core/IconButton';
-import { storage } from "../../../src/config/firebase";
-
+import TagsInput from 'react-tagsinput';
+import 'react-tagsinput/react-tagsinput.css'
 
 function AddPost(props) {
-    //const [state, setState] = useState();
-    // const [about, setAbout] = useState('');
-
-    // const [imgAsFile, setImgAsFile] = useState(new File([], ''));
-    // const [imgAsUrl, setImgAsUrl] = useState({imgUrl:""});
-    const defaultState = {title:"", about: "", imgAsFile: '', topic:""};
-    const { values, errors, handleChange, handleSubmit } = useForm(submit, validatePost, defaultState);
-
     const { dispatch, history } = props;
     const { user } = props;
+    const defaultState = {title:"", about: "", imgAsFile: '', topic:"", tags: []};
+    const { values, errors, handleChange, handleSubmit } = useForm(submit, validatePost, defaultState);
+    const [tag, setTag] = useState('');
+
+    function handleAddition(tags) {
+        handleChange({target: { name: 'tags', value: tags } });
+    }
+
+    function handleChangeInput(tag) {
+        setTag(tag);
+    }
 
     async function submit() {
         // await poster({title: values.title, about: values.about, imgAsFile});
-        dispatch(poster({title: values.title, about: values.about, user_id: user.id, created_at: values.created_at, imgAsFile: values.imgAsFile, topic: values.topic}))
+        dispatch(poster({
+            title: values.title,
+            about: values.about,
+            user_id: user.id,
+            created_at: values.created_at,
+            imgAsFile: values.imgAsFile,
+            topic: values.topic,
+            tags: values.tags
+        }))
             .then(() => {
                 console.log("endd");
                 history.push('/posts/1');
@@ -93,13 +103,6 @@ function AddPost(props) {
                                 </Dropdown>
                             </Col>
                         </Form.Group>
-                        {/*<h6>Тopic</h6>        */}
-                        {/*<select className="controledSelect" id="categories" className="mr-0 ml-0" onChange = {handleChange} name = "topic">*/}
-                        {/*    <option selected>Choose...</option>*/}
-                        {/*    <option value="Travel">Travel</option>*/}
-                        {/*    <option value="IT">IT</option>*/}
-                        {/*    <option value="Finance">Finance</option>*/}
-                        {/*</select>   */}
                 
                     <div>
                         <Form.Group as={Row} controlId="formGridPassword" className="mr-0 ml-0">
@@ -116,9 +119,7 @@ function AddPost(props) {
                                     className="file-visible ml-sm-2"
                                     size="0.25g"
                                     type="file"
-                                    name="imgAsFile"
-                                    onChange ={handleChange}
-                                >Add Image</Button>
+                                    name="imgAsFile">Add Image</Button>
                                 <label htmlFor="icon-button-file" className="ml-2">
                                     {values.imgAsFile && values.imgAsFile.name}
                                 </label>
@@ -127,22 +128,35 @@ function AddPost(props) {
                         </Form.Group>
                     </div>
 
+                    <Form.Group as={Row} controlId="formGridPassword" className="mr-0 ml-0">
+                        <Form.Label column sm={4} className="ml-sm-2">Tags connected with post, you can add 3 unique tags.</Form.Label>
+                        <Col sm={8}>
+                            <TagsInput value={values.tags}
+                                       onChange={handleAddition}
+                                       inputValue={tag}
+                                       onChangeInput={handleChangeInput}
+                                       removeKeys={values.tags}
+                                       onlyUnique={true}
+                                       maxTags={3}
+                                       className="react-tagsinput ml-2" />
+                            {errors.tags && <p className="ml-sm-2 error">{errors.tags}</p>}
+                        </Col>
+                    </Form.Group>
 
-                        <Form.Group as={Row} controlId="post" className="mr-0 ml-0">
-                            <Col sm={10}>
-                                <Button
-                                    variant="outline-success"
-                                    className="ml-sm-2"
-                                    size="0.25g"
-                                    onClick={handleSubmit}
-                                >ADD POST</Button>
-                            </Col>
-                        </Form.Group>
+                    <Form.Group as={Row} controlId="post" className="mr-0 ml-0">
+                        <Col sm={10}>
+                            <Button
+                                variant="outline-success"
+                                className="ml-sm-2"
+                                size="0.25g"
+                                onClick={handleSubmit}
+                            >ADD POST</Button>
+                        </Col>
+                    </Form.Group>
 
                     </div>
                 </div>
             </StyledAddPost>
-            
     )
 }
 
