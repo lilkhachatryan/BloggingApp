@@ -29,7 +29,7 @@ const SignedInLinks = (props) => {
                 <NavDropdown.Item as={NavLink} to="/addpost">New Story</NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to="/posts/1">Stories</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Reading List</NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/me/list/save">Reading List</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item as={NavLink} to="/">Profile</NavDropdown.Item>
                 <NavDropdown.Item ><Logout/></NavDropdown.Item>

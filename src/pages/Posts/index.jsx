@@ -37,7 +37,7 @@ function Posts(props) {
 
     const bookmarkPost = async (post) => {
         try {
-            await addBookmark({post: postRef(post.id), user: userRef(user.id)});
+            await addBookmark({ post: postRef(post.id), user: userRef(user.id), isArchived: false });
             handlePostsChange({isBookmarked: true, id: post.id});
         } catch (e) {
             console.log('bookmarkPost e', e);
@@ -80,7 +80,9 @@ function Posts(props) {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     if (error) return (<div>Something went wrong.</div>);
+
     if (loading) return (<Loading />);
+
     if (!state.posts[0]) return (
         <Card  className="mx-auto mt-4 mb-4" >
             <Card.Body>
