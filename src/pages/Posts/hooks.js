@@ -34,7 +34,7 @@ const usePostsFetch = ({params, user}) => {
 
                 if (doc.exists) {
                     let isBookmarked = false;
-                    if (user.id) { // need to remove this, tmporary for not getting error in home page
+                    if (user && user.id) { // need to remove this, tmporary for not getting error in home page
                         const resBookmark = await bookmarkRef()
                             .where("user", "==", userRef(user.id))
                             .where("post", "==", postRef(doc.id))

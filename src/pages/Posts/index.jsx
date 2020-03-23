@@ -15,7 +15,7 @@ import { faBookmark as farBookmark, faTrashAlt as farTrashAlt } from '@fortaweso
 function Posts(props) {
     const { user, history } = props;
     const { page } = useParams();
-    const [{ state, loading, error }, fetchPosts, setState] = usePostsFetch({ user_id: user.id });
+    const [{ state, loading, error }, fetchPosts, setState] = usePostsFetch({ params: { user_id: user.id } });
     const [currentPage, setCurrentPage] = useState(Number(page));
     const [postsPerPage,setPostsPerPage] = useState(2);
 
@@ -83,54 +83,61 @@ function Posts(props) {
 
     if (loading) return (<Loading />);
 
-    if (!state.posts[0]) return (
-        <Card  className="mx-auto mt-4 mb-4" >
-            <Card.Body>
-                <div>You don't have posted blog. <Link to={'/addPost'}>Click here for creating it now!</Link></div>
-            </Card.Body>
-        </Card>);
+    if (!state.posts[0]) {
+        return (
+            <>
+                <Card  className="mx-auto mt-4 mb-4" >
+                    <Card.Body>
+                        <div>You don't have posted blog. 
+                            <Link to={'/addPost'}>Click here for creating it now!</Link>
+                        </div>
+                    </Card.Body>
+                </Card>
+            </>)
+    };
 
     return (
-    <>
-        {currentPosts.map(p =>
-            <div key={p.id}>
-                <Card  className = "m-4" >
-                    <Card.Body className={"pl-5"}>
-                        {
-                            p.isBookmarked ?
-                                <FontAwesomeIcon icon={fasBookmark } className="bookmark" onClick={() => removeBookmarkPost(p)}/>
-                                : <FontAwesomeIcon icon={ farBookmark } className="bookmark" onClick={() => bookmarkPost(p)} />
+        <>
+            {currentPosts.map( p => (
+                <div key={p.id}>
+                    <Card  className = "m-4" >
+                        <Card.Body className={"pl-5"}>
+                            {
+                                p.isBookmarked ?
+                                    <FontAwesomeIcon icon={fasBookmark } className="bookmark" onClick={() => removeBookmarkPost(p)}/>
+                                    : <FontAwesomeIcon icon={ farBookmark } className="bookmark" onClick={() => bookmarkPost(p)} />
+                            }
+
+                            {/*<FontAwesomeIcon icon={ fasArchive } color="grey"/>*/}
+                            {/*<FontAwesomeIcon icon={ farTrashAlt } color="grey"/>*/}
+
+                            <Card.Title>{p.title}</Card.Title>
+                            <Card.Img variant="top" src={p.image} alt="nkar" className="img mt-3 mb-3"/>
+                            <Card.Text className="mx-auto">
+                                {p.content.substring(0, 200) + "..."}
+                            </Card.Text>
+                            <Link to={"/post/" + p.id}>Read more</Link>
+                        </Card.Body>
+
+                        { user.id === p.user.id && <FontAwesomeIcon
+                                                        icon={farTrashAlt}
+                                                        id="delete"
+                                                        onClick = {() => {deletePost(p)}} />
                         }
+                    </Card>
+                </div>)
+            )}
 
-                        {/*<FontAwesomeIcon icon={ fasArchive } color="grey"/>*/}
-                        {/*<FontAwesomeIcon icon={ farTrashAlt } color="grey"/>*/}
-
-                        <Card.Title>{p.title}</Card.Title>
-                        <Card.Img variant="top" src={p.image} alt="nkar" className="img mt-3 mb-3"/>
-                        <Card.Text className="mx-auto">
-                            {p.content.substring(0, 200)+"..."}
-                        </Card.Text>
-                        <Link to={"/post/" + p.id}>Read more</Link>
-                    </Card.Body>
-                    {user.id === p.user.id && <FontAwesomeIcon
-                                                icon={farTrashAlt}
-                                                id="delete"
-                                                onClick = {() => {deletePost(p)}}/>}
-                </Card>
+            <div>
+                <Pagination
+                    postsPerPage = {postsPerPage}
+                    totalPosts = {state.posts.length}
+                    currentPage={currentPage}
+                    paginate={paginate} />
             </div>
-        )}
-        <div>
-            <Pagination
-            postsPerPage = {postsPerPage}
-            totalPosts = {state.posts.length}
-            currentPage={currentPage}
-            paginate={paginate}
-
-            />
-        </div>
-    </>
-    )
+        </>)
 }
+
 function mapStateToProps(state) {
     return {
         user: state.login.user
